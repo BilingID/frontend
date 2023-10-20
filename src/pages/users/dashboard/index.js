@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import DashboardLayout from "pages/users/dashboard/DashboardLayout";
 import SidebarLayout from "pages/users/dashboard/SidebarLayout";
 import ProfilItem from "pages/users/dashboard/items/Profile";
@@ -7,36 +10,22 @@ import RiwayatItem from "./items/Riwayat";
 import PengaturanItem from "./items/Pengaturan";
 import LogoutItem from "./items/Logout";
 
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+const routeComponents = {
+  "/users": <ProfilItem />,
+  "/users/psikotes": <PsikotesItem />,
+  "/users/jadwal": <JadwalItem />,
+  "/users/riwayat": <RiwayatItem />,
+  "/users/pengaturan": <PengaturanItem />,
+  "/users/logout": <LogoutItem />,
+};
 
 const DashboardUsers = () => {
   const location = useLocation();
-  const [page, setPage] = useState(<ProfilItem />);
+  const [page, setPage] = useState(routeComponents[location.pathname] || <ProfilItem />);
+
   useEffect(() => {
-    switch (location.pathname) {
-      case "/users":
-        setPage(<ProfilItem />);
-        break;
-      case "/users/psikotes":
-        setPage(<PsikotesItem />);
-        break;
-      case "/users/jadwal":
-        setPage(<JadwalItem />);
-        break;
-      case "/users/riwayat":
-        setPage(<RiwayatItem />);
-        break;
-      case "/users/pengaturan":
-        setPage(<PengaturanItem />);
-        break;
-      case "/users/logout":
-        setPage(<LogoutItem />);
-        break;
-      default:
-        setPage(<ProfilItem />);
-        break;
-    }
+    const selectedPage = routeComponents[location.pathname] || <ProfilItem />;
+    setPage(selectedPage);
   }, [location.pathname]);
 
   return (
