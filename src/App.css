@@ -2,6 +2,13 @@ body {
   background: #f5f8fa;
 }
 
+.profile-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
 .dashboard-body {
   /* min-height: 100vh; */
   margin-bottom: 40px;
@@ -12,7 +19,7 @@ body {
 }
 
 .btn-primary,
-.btn-outline-secondary {
+.btn-outline-edit {
   height: 75px;
   font-weight: bold;
   font-size: 18px;
@@ -20,11 +27,15 @@ body {
   padding: 0 40px;
 }
 
-.btn-outline-secondary {
+.btn-outline-edit {
   color: #030303;
   border-radius: 40px;
   border: 1px solid #eee;
   background: #fff;
+}
+
+.btn-outline-edit:hover {
+  border: 1px solid #d7d7d7;
 }
 
 .btn-primary {
@@ -50,6 +61,19 @@ body {
   color: #2e7df1;
   font-weight: 700;
   line-height: 85px;
+}
+
+.react-international-phone-input {
+  height: 75px !important;
+  width: 100%;
+  border-radius: 40px !important;
+}
+
+.react-international-phone-country-selector button {
+  height: 75px !important;
+  border-radius: 40px !important;
+  border: 1px solid #eee;
+  background: #fff;
 }
 
 .form-control {

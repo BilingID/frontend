@@ -1,10 +1,12 @@
 import { useUserContext } from "context/UserContext";
-import { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Fragment, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import CameraIcon from "assets/icon/svg/camera.svg";
 
 const ProfilField = ({ label, value }) => {
   return (
-    <div className="d-flex flex-column gap-2 mb-4">
+    <div className="d-flex flex-column gap-3 mb-4">
       <div className="fs-5">{label}</div>
       <div className="fs-6">{value}</div>
     </div>
@@ -36,37 +38,57 @@ const ProfilView = ({ user, handleClick }) => {
   );
 };
 
-const EditableProfilView = ({ user, handleClick }) => {
+const EditableProfilView = ({ user, handleFormChange, handleFormSubmit }) => {
+  const navigate = useNavigate();
+
   return (
     <Fragment>
       <div className="row">
         <div className="col">
           <div className="d-flex flex-column gap-2 mb-4">
             <label className="form-label fw-bold">Nama</label>
-            <input type="text" className="form-control" value={user?.fullName} />
+            <input
+              type="text"
+              className="form-control"
+              value={user?.fullName}
+              name="fullName"
+              onChange={handleFormChange}
+            />
           </div>
 
           <div className="d-flex flex-column gap-2 mb-4">
             <label className="form-label fw-bold">Tanggal lahir</label>
-            <input type="text" className="form-control" value={user?.dateOfBirth} />
+            <input
+              type="date"
+              className="form-control"
+              value={user?.dateOfBirth}
+              name="dateOfBirth"
+              onChange={handleFormChange}
+            />
           </div>
 
-          <div className="d-flex flex-column gap-2 mb-4">
+          <div className="d-flex flex-column gap-2 mb-4" onChange={handleFormChange}>
             <label className="form-label fw-bold">Jenis kelamin</label>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="gender" />
-              <label class="form-check-label">Laki-Laki</label>
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="gender" value="Laki-Laki" />
+              <label className="form-check-label">Laki-Laki</label>
             </div>
-            <div class="form-check">
-              <input class="form-check-input" type="radio" name="gender" />
-              <label class="form-check-label">Perempuan</label>
+            <div className="form-check">
+              <input className="form-check-input" type="radio" name="gender" value="Perempuan" />
+              <label className="form-check-label">Perempuan</label>
             </div>
           </div>
         </div>
         <div className="col">
           <div className="d-flex flex-column gap-2 mb-4">
             <label className="form-label fw-bold">Nomor telepon</label>
-            <input type="text" className="form-control" value={user?.phone} />
+            <input
+              type="number"
+              className="form-control"
+              value={user?.phone}
+              name="phone"
+              onChange={handleFormChange}
+            />
           </div>
           <div className="d-flex flex-column gap-2 mb-4">
             <label className="form-label fw-bold">Email</label>
@@ -74,13 +96,18 @@ const EditableProfilView = ({ user, handleClick }) => {
               <input
                 type="text"
                 className="form-control"
+                name="email"
                 value={user?.email}
                 style={{
                   width: "68%",
                 }}
                 disabled
               />
-              <button class="btn btn-outline-secondary fw-bold" type="button">
+              <button
+                className="btn btn-outline-edit fw-bold"
+                type="button"
+                onClick={() => navigate("/users/changeEmail")}
+              >
                 Ubah
               </button>
             </div>
@@ -97,7 +124,11 @@ const EditableProfilView = ({ user, handleClick }) => {
                 }}
                 disabled
               />
-              <button class="btn btn-outline-secondary fw-bold" type="button">
+              <button
+                className="btn btn-outline-edit fw-bold"
+                type="button"
+                onClick={() => navigate("/users/changePassword")}
+              >
                 Ubah
               </button>
             </div>
@@ -106,7 +137,7 @@ const EditableProfilView = ({ user, handleClick }) => {
       </div>
 
       <div className="d-flex justify-content-end">
-        <button className="btn btn-primary" onClick={handleClick}>
+        <button className="btn btn-primary" onClick={handleFormSubmit}>
           Simpan
         </button>
       </div>
@@ -115,22 +146,83 @@ const EditableProfilView = ({ user, handleClick }) => {
 };
 
 const ProfilItem = () => {
-  // static data
+  // Static data
   const emailIsVerified = false;
-  const { user, setUser } = useUserContext();
 
+  // User context and state management
+  const { user, setUser } = useUserContext();
   const [isEditable, setEditable] = useState(false);
+  const [form, setForm] = useState(user);
+
+  // Form input change handling
+  const handleFormChange = (event) => {
+    if (event.target.name === "phone" && event.target.value.length > 13) {
+      return;
+    }
+
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  // Form submission handling
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    setUser(form);
+    setEditable(false);
+  };
+
+  // Profile picture handling
+  const profilePicture = useRef(null);
+
+  const handleEditPicture = () => {
+    profilePicture.current.click();
+  };
+
+  const handlePictureChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setForm({
+        ...form,
+        profilePicture: reader.result,
+      });
+    };
+
+    reader.readAsDataURL(file);
+  };
 
   return (
     <Fragment>
+      <input
+        type="file"
+        name="profilePicture"
+        ref={profilePicture}
+        onChange={handlePictureChange}
+        className="d-none"
+      />
       <div className="box px-5 py-5 d-flex flex-column gap-5">
         <div className="fs-2 border-bottom pb-3">Profil</div>
-        <div className="text-center">
+        <div className="container text-center position-relative">
           <img
-            src="https://via.placeholder.com/130"
+            src={form?.profilePicture || "https://via.placeholder.com/130"}
             alt="profile"
-            className="rounded-circle border border-3 border-primary p-1"
+            className="profile-img border border-3 p-2 border-primary"
           />
+          {isEditable && (
+            <img
+              src={CameraIcon}
+              className="btn bg-primary rounded-circle p-3 position-absolute"
+              style={{
+                left: "50%",
+                bottom: "0",
+                transform: "translate(-50%, 50%)",
+              }}
+              onClick={handleEditPicture}
+            />
+          )}
         </div>
 
         {!emailIsVerified && (
@@ -143,7 +235,11 @@ const ProfilItem = () => {
         )}
 
         {isEditable ? (
-          <EditableProfilView user={user} handleClick={() => setEditable(false)} />
+          <EditableProfilView
+            user={form}
+            handleFormChange={handleFormChange}
+            handleFormSubmit={handleFormSubmit}
+          />
         ) : (
           <ProfilView user={user} handleClick={() => setEditable(true)} />
         )}
