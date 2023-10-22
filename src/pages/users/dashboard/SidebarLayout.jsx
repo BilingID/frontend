@@ -7,28 +7,32 @@ import LogoutIcon from "assets/icon/svg/logout.svg";
 
 import ArrowRightIcon from "assets/icon/svg/arrow-right.svg";
 import { useNavigate } from "react-router-dom";
+import { useUserContext } from "context/UserContext";
 
 const Option = ({ icon, name, path, status }) => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(path);
   };
+
   return (
     <div
       className="d-flex justify-content-between btn px-0 fw-bold text-secondary"
       onClick={handleClick}
     >
       <div className="d-flex gap-2">
-        <img src={icon} /> {name}
+        <img src={icon} alt="option icon" /> {name}
       </div>
       <div className="">
-        <img src={ArrowRightIcon} />
+        <img src={ArrowRightIcon} alt="arrow option icon" />
       </div>
     </div>
   );
 };
 
 const SidebarLayout = ({ children }) => {
+  const { user, setUser } = useUserContext();
+
   return (
     <div
       className="box"
@@ -37,9 +41,9 @@ const SidebarLayout = ({ children }) => {
       }}
     >
       <div className="d-flex flex-column gap-3 mb-5">
-        <div className="fs-6">Hai</div>
-        <div className="fs-4">Arla Shifana Putri</div>
-        <div className="fs-7">arlasifhanap@gmail.com</div>
+        <div className="fs-6">Hai,</div>
+        <div className="fs-4">{user?.fullName}</div>
+        <div className="fs-7">{user?.email}</div>
       </div>
       <div className="d-flex flex-column gap-3 fs-5">
         <Option icon={ProfileIcon} path="/users" name="Profil" />

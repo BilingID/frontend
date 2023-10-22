@@ -1,6 +1,31 @@
 .dashboard-body {
   background: #f5f8fa;
   min-height: 100vh;
+  margin-bottom: 40px;
+}
+
+.input-group {
+  border-radius: 40px;
+}
+
+.btn-primary,
+.btn-outline-secondary {
+  height: 75px;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 40px;
+  padding: 0 40px;
+}
+
+.btn-outline-secondary {
+  color: #030303;
+  border-radius: 40px;
+  border: 1px solid #eee;
+  background: #fff;
+}
+
+.btn-primary {
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.15);
 }
 
 .box {
@@ -27,7 +52,7 @@
 .form-control {
   height: 75px;
   flex-shrink: 0;
-  padding: 0 24px;
+  padding: 0 32px;
   border-radius: 40px;
   border: 1px solid #eee;
   background: #fff;
