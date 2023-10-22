@@ -1,8 +1,9 @@
 import { useUserContext } from "context/UserContext";
 import { Fragment, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Form, Link, useNavigate } from "react-router-dom";
 
 import CameraIcon from "assets/icon/svg/camera.svg";
+import { FormInput } from "components/common/Form";
 
 const ProfilField = ({ label, value }) => {
   return (
@@ -45,27 +46,20 @@ const EditableProfilView = ({ user, handleFormChange, handleFormSubmit }) => {
     <Fragment>
       <div className="row">
         <div className="col">
-          <div className="d-flex flex-column gap-2 mb-4">
-            <label className="form-label fw-bold">Nama</label>
-            <input
-              type="text"
-              className="form-control"
-              value={user?.fullName}
-              name="fullName"
-              onChange={handleFormChange}
-            />
-          </div>
+          <FormInput
+            label="Nama"
+            value={user?.fullName}
+            name="fullName"
+            onChange={handleFormChange}
+          />
 
-          <div className="d-flex flex-column gap-2 mb-4">
-            <label className="form-label fw-bold">Tanggal lahir</label>
-            <input
-              type="date"
-              className="form-control"
-              value={user?.dateOfBirth}
-              name="dateOfBirth"
-              onChange={handleFormChange}
-            />
-          </div>
+          <FormInput
+            type="date"
+            label="Tanggal lahir"
+            value={user?.dateOfBirth}
+            name="placeOfBirth"
+            onChange={handleFormChange}
+          />
 
           <div className="d-flex flex-column gap-2 mb-4" onChange={handleFormChange}>
             <label className="form-label fw-bold">Jenis kelamin</label>
@@ -80,16 +74,17 @@ const EditableProfilView = ({ user, handleFormChange, handleFormSubmit }) => {
           </div>
         </div>
         <div className="col">
-          <div className="d-flex flex-column gap-2 mb-4">
-            <label className="form-label fw-bold">Nomor telepon</label>
-            <input
-              type="number"
-              className="form-control"
-              value={user?.phone}
-              name="phone"
-              onChange={handleFormChange}
-            />
-          </div>
+          <FormInput
+            type="number"
+            label="Nomor telepon"
+            value={user?.phone}
+            name="phone"
+            onChange={handleFormChange}
+            onWheel={(event) => {
+              event.target.blur(); // disable scroll when scrolling on number input
+            }}
+          />
+
           <div className="d-flex flex-column gap-2 mb-4">
             <label className="form-label fw-bold">Email</label>
             <div className="input-group">
@@ -205,7 +200,7 @@ const ProfilItem = () => {
       />
       <div className="box px-5 py-5 d-flex flex-column gap-5">
         <div className="fs-2 border-bottom pb-3">Profil</div>
-        <div className="container text-center position-relative">
+        <div className="text-center position-relative">
           <img
             src={form?.profilePicture || "https://via.placeholder.com/130"}
             alt="profile"

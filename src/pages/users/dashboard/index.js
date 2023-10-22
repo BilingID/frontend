@@ -9,6 +9,8 @@ import JadwalItem from "./items/Jadwal";
 import RiwayatItem from "./items/Riwayat";
 import PengaturanItem from "./items/Pengaturan";
 import LogoutItem from "./items/Logout";
+import ChangeEmailItem from "./items/ChangeEmail";
+import ChangePasswordItem from "./items/ChangePassword";
 
 const routeComponents = {
   "/users": <ProfilItem />,
@@ -17,6 +19,8 @@ const routeComponents = {
   "/users/riwayat": <RiwayatItem />,
   "/users/pengaturan": <PengaturanItem />,
   "/users/logout": <LogoutItem />,
+  "/users/changeEmail": <ChangeEmailItem />,
+  "/users/changePassword": <ChangePasswordItem />,
 };
 
 const DashboardUsers = () => {

@@ -14,16 +14,17 @@ const DashboardLayout = ({ children }) => {
             BiLing.ID
           </div>
           <button
-            className="navbar-toggler"
+            class="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#nav-toggler"
             aria-controls="nav-toggler"
             aria-expanded="false"
+            aria-label="Toggle navigation"
           >
-            <span className="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse " id="nav-toggler">
+          <div className="collapse navbar-collapse" id="nav-toggler">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-5">
               <li className="nav-item">
                 <input type="text" className="form-control" placeholder="Cari Psikolog" />

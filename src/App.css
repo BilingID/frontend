@@ -19,7 +19,8 @@ body {
 }
 
 .btn-primary,
-.btn-outline-edit {
+.btn-outline-edit,
+.btn-outline-primary {
   height: 75px;
   font-weight: bold;
   font-size: 18px;
@@ -42,6 +43,18 @@ body {
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.15);
 }
 
+.bg-primary-transparent {
+  background: #eef5ff;
+}
+
+.bg-warning-transparent {
+  background: #fef8e8;
+}
+
+.rounded-corner {
+  border-radius: 40px;
+}
+
 .box {
   border-radius: 40px;
   background: #fff;
@@ -52,7 +65,7 @@ body {
 }
 
 .navbar {
-  height: 185px !important;
+  min-height: 185px !important;
   box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.05);
   background-color: white;
 }
@@ -136,4 +149,16 @@ p,
 .fs-7 {
   font-size: 16px !important;
   color: #3d3d3d;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
