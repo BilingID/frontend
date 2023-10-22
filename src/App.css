@@ -1,6 +1,9 @@
-.dashboard-body {
+body {
   background: #f5f8fa;
-  min-height: 100vh;
+}
+
+.dashboard-body {
+  /* min-height: 100vh; */
   margin-bottom: 40px;
 }
 

@@ -1,5 +1,6 @@
 import { useUserContext } from "context/UserContext";
 import { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ProfilField = ({ label, value }) => {
   return (
@@ -35,7 +36,7 @@ const ProfilView = ({ user, handleClick }) => {
   );
 };
 
-const ProfilViewEditable = ({ user, handleClick }) => {
+const EditableProfilView = ({ user, handleClick }) => {
   return (
     <Fragment>
       <div className="row">
@@ -135,14 +136,14 @@ const ProfilItem = () => {
         {!emailIsVerified && (
           <div className="fs-6">
             Email anda belum terverifikasi, untuk verifikasi{" "}
-            <a href="/users/verification" className="fw-bold">
+            <Link to="/users/verification" className=" fw-bold">
               klik disini
-            </a>
+            </Link>
           </div>
         )}
 
         {isEditable ? (
-          <ProfilViewEditable user={user} handleClick={() => setEditable(false)} />
+          <EditableProfilView user={user} handleClick={() => setEditable(false)} />
         ) : (
           <ProfilView user={user} handleClick={() => setEditable(true)} />
         )}
