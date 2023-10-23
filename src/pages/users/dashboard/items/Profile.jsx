@@ -1,9 +1,9 @@
 import { useUserContext } from "context/UserContext";
 import { Fragment, useRef, useState } from "react";
-import { Form, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import CameraIcon from "assets/icon/svg/camera.svg";
-import { FormInput } from "components/common/Form";
+import { FormInput, FormRadios } from "components/common/Form";
 
 const ProfilField = ({ label, value }) => {
   return (
@@ -57,22 +57,18 @@ const EditableProfilView = ({ user, handleFormChange, handleFormSubmit }) => {
             type="date"
             label="Tanggal lahir"
             value={user?.dateOfBirth}
-            name="placeOfBirth"
+            name="dateOfBirth"
             onChange={handleFormChange}
           />
 
-          <div className="d-flex flex-column gap-2 mb-4" onChange={handleFormChange}>
-            <label className="form-label fw-bold">Jenis kelamin</label>
-            <div className="form-check">
-              <input className="form-check-input" type="radio" name="gender" value="Laki-Laki" />
-              <label className="form-check-label">Laki-Laki</label>
-            </div>
-            <div className="form-check">
-              <input className="form-check-input" type="radio" name="gender" value="Perempuan" />
-              <label className="form-check-label">Perempuan</label>
-            </div>
-          </div>
+          <FormRadios
+            label="Jenis kelamin"
+            options={["Laki-Laki", "Perempuan"]}
+            checked={user?.gender}
+            onChange={handleFormChange}
+          />
         </div>
+
         <div className="col">
           <FormInput
             type="number"

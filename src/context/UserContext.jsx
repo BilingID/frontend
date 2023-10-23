@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
     fullName: "Arla Sifhana Putri",
     email: "arla@gmail.com",
     gender: "Perempuan",
-    dateOfBirth: "31/12/2003",
+    dateOfBirth: "2003-10-25",
     phone: "081234567890",
     profilePicture: null,
   };

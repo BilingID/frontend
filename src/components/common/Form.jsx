@@ -12,6 +12,28 @@ export const FormInput = ({ label, ...props }) => {
   );
 };
 
+export const FormRadios = (props) => {
+  return (
+    <div className="d-flex flex-column gap-2 mb-4" onChange={props.onChange}>
+      <label className="form-label fw-bold">{props.label}</label>
+      {props.options.map((option) => {
+        return (
+          <div className="form-check" key={option}>
+            <input
+              className="form-check-input"
+              type="radio"
+              name="gender"
+              value={option}
+              defaultChecked={props.checked === option}
+            />
+            <label className="form-check-label">{option}</label>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
 export const FormPassword = ({ label, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
 
