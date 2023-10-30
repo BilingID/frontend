@@ -1,6 +1,7 @@
 import { Navigate, useRoutes } from "react-router-dom";
 
 import DashboardUsers from "pages/users/dashboard";
+import Landing from "pages/Landing";
 
 const Routes = () => {
   const routes = useRoutes([
@@ -9,8 +10,12 @@ const Routes = () => {
       element: <DashboardUsers />,
     },
     {
+      path: "/",
+      element: <Landing />,
+    },
+    {
       path: "*",
-      element: <Navigate to="/users" replace />, // debug
+      element: <Navigate to="/" replace />, // debug
     },
   ]);
 

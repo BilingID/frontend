@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import CameraIcon from "assets/icon/svg/camera.svg";
 import { FormInput, FormRadios } from "components/common/Form";
+import { toast } from "react-toastify";
 
 const ProfilField = ({ label, value }) => {
   return (
@@ -173,6 +174,11 @@ const ProfilItem = () => {
 
   const handlePictureChange = (event) => {
     const file = event.target.files[0];
+
+    if (file.type !== "image/png" && file.type !== "image/jpeg") {
+      return toast.warn("Invalid image file.");
+    }
+
     const reader = new FileReader();
 
     reader.onloadend = () => {
