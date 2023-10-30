@@ -9,11 +9,6 @@ body {
   border-radius: 50%;
 }
 
-.dashboard-body {
-  /* min-height: 100vh; */
-  margin-bottom: 40px;
-}
-
 .input-group {
   border-radius: 40px;
 }
