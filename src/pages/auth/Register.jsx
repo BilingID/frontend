@@ -4,11 +4,15 @@ import { FormInput, FormPassword } from "components/common/Form";
 import { ReactComponent as GoogleIcon } from "assets/icon/svg/google-icon.svg";
 import AuthLayout from "./AuthLayout";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [form, setForm] = useState({
+    fullName: "",
     email: "",
     password: "",
+    passwordConfirmation: "",
+    acceptAggrement: false,
   });
 
   const handleFormChange = (event) => {
@@ -20,8 +24,18 @@ const RegisterPage = () => {
     }));
   };
 
+  const handleCheckboxChange = (event) => {
+    setForm((prevState) => ({
+      ...prevState,
+      acceptAggrement: event.target.checked,
+    }));
+  };
+
   const handleSubmit = (event) => {
-    event.preventDefault();
+    if (!form.acceptAggrement) {
+      toast.warn("Kamu harus menyetujui syarat dan ketentuan");
+      return;
+    }
     console.log(form);
   };
 
@@ -65,11 +79,14 @@ const RegisterPage = () => {
         onChange={handleFormChange}
       />
 
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-        <label class="form-check-label" for="flexCheckDefault">
-          Terima syarat dan ketentuan
-        </label>
+      <div className="form-check">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          name="acceptAggrement"
+          onChange={handleCheckboxChange}
+        />
+        <label className="form-check-label">Terima syarat dan ketentuan</label>
       </div>
 
       <div className="text-end">

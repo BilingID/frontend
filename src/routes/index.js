@@ -4,16 +4,23 @@ import DashboardUsers from "pages/users/dashboard";
 import Landing from "pages/Landing";
 import LoginPage from "pages/auth/Login";
 import RegisterPage from "pages/auth/Register";
+import ForgotPasswordPage from "pages/auth/ForgotPassword";
+
+const PrivateRoute = ({ element, ...rest }) => {
+  const isAuthenticated = false; // TODO: check if user is authenticated
+  return isAuthenticated ? element : <Navigate to="/login" replace />;
+};
 
 const Routes = () => {
   const routes = useRoutes([
     {
       path: "/users/*",
+      // element: <PrivateRoute element={<DashboardUsers />} />,
       element: <DashboardUsers />,
     },
     {
       path: "/",
-      element: <Landing />,
+      element: <PrivateRoute element={<Landing />} />,
     },
     {
       path: "/login",
@@ -22,6 +29,10 @@ const Routes = () => {
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPasswordPage />,
     },
     {
       path: "*",
