@@ -13,6 +13,8 @@ body {
   border-radius: 40px;
 }
 
+.btn-default,
+.btn-light,
 .btn-primary,
 .btn-outline-edit,
 .btn-outline-primary {
@@ -146,6 +148,14 @@ p,
   color: #3d3d3d;
 }
 
+.shadow-btn {
+  box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.05);
+}
+
+.pe-auto {
+  cursor: pointer;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -156,4 +166,20 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.centered-line {
+  display: flex;
+  align-items: center;
+  color: #979797;
+  margin: 32px 0;
+}
+
+.centered-line::before,
+.centered-line::after {
+  content: "";
+  flex-grow: 1;
+  height: 2px;
+  background: #f7f7f7;
+  margin: 0 10px;
 }

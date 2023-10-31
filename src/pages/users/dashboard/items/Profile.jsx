@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 const ProfilField = ({ label, value }) => {
   return (
     <div className="d-flex flex-column gap-3 mb-4">
-      <div className="fs-5">{label}</div>
-      <div className="fs-6">{value}</div>
+      <h5>{label}</h5>
+      <p>{value}</p>
     </div>
   );
 };
