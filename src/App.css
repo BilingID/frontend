@@ -183,3 +183,10 @@ input[type="number"] {
   background: #f7f7f7;
   margin: 0 10px;
 }
+
+ol li::before {
+  content: counter(my-awesome-counter) ". ";
+  color: #2e7df1;
+  margin-right: 10px;
+  font-weight: bold;
+}

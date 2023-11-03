@@ -14,13 +14,13 @@ const Footer = (props) => {
       {/* create footer brand */}
       <div className="container py-5">
         <div className="row">
-          <div className="col-4 mb-5">
+          <div className="col-4 mb-5" style={{ paddingRight: "72px" }}>
             <div className="mb-3 fs-2 text-primary">
               <span className="pe-auto" onClick={handleClick}>
                 BiLing.ID
               </span>
             </div>
-            <span className="lh-lg">
+            <span className="lh-lg ">
               Kamu mendapatkan bantuan, menjadi lebih baik, dan pantas untuk bahagia.
             </span>
           </div>

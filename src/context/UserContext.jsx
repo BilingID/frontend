@@ -15,6 +15,7 @@ export const UserProvider = ({ children }) => {
     dateOfBirth: "2003-10-25",
     phone: "081234567890",
     profilePicture: null,
+    role: "client",
   };
   const [user, setUser] = useSessionStorage("user", mockUser);
 

@@ -5,8 +5,10 @@ import Landing from "pages/Landing";
 import LoginPage from "pages/auth/Login";
 import RegisterPage from "pages/auth/Register";
 import ForgotPasswordPage from "pages/auth/ForgotPassword";
+import PsikotesPage from "pages/psikotes/Psikotes";
+import PaymentPage from "pages/psikotes/Payment";
 
-const PrivateRoute = ({ element, ...rest }) => {
+const PrivateRoute = ({ element }) => {
   const isAuthenticated = false; // TODO: check if user is authenticated
   return isAuthenticated ? element : <Navigate to="/login" replace />;
 };
@@ -17,6 +19,14 @@ const Routes = () => {
       path: "/users/*",
       // element: <PrivateRoute element={<DashboardUsers />} />,
       element: <DashboardUsers />,
+    },
+    {
+      path: "/psikotes/*",
+      element: <PsikotesPage />,
+    },
+    {
+      path: "/psikotes/payment",
+      element: <PaymentPage />,
     },
     {
       path: "/",

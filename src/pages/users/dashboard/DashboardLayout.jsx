@@ -3,10 +3,21 @@ import { ReactComponent as NotificationIcon } from "assets/icon/svg/notification
 import { useNavigate, Link } from "react-router-dom";
 
 import Footer from "components/footer/Footer";
+import { useEffect, useState } from "react";
 
 const DashboardLayout = ({ children }) => {
   const navigate = useNavigate();
   const handleClick = () => navigate("/");
+
+  const [search, setSearch] = useState("");
+
+  const handleFormChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  useEffect(() => {
+    // console.log(search);
+  }, [search]);
 
   return (
     <div>
@@ -30,7 +41,12 @@ const DashboardLayout = ({ children }) => {
             <div className="collapse navbar-collapse" id="nav-toggler">
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-5">
                 <li className="nav-item">
-                  <input type="text" className="form-control" placeholder="Cari Psikolog" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Cari Psikolog"
+                    onChange={handleFormChange}
+                  />
                 </li>
                 <li className="nav-item">
                   <Link to="#" className="text-black">
