@@ -1,28 +1,18 @@
 import MainLayout from "components/layout/MainLayout";
+import { PaymentHeader, PaymentSubHeader } from "components/payment/Header";
 
 const Psikotes = () => {
   return (
     <MainLayout>
       <div className="container my-5">
         <div className="row">
-          <div className="col-12 text-center mt-5">
-            <h1
-              style={{
-                padding: "0 216px",
-                lineHeight: "105px",
-              }}
-            >
-              Tes kepribadian MBTI: Kenali dirimu lebih jauh!
-            </h1>
-            <p
-              style={{
-                lineHeight: "35px",
-                padding: "0 216px",
-              }}
-            >
-              Tes MBTI ini bertujuan untuk membantu memahami keunikan kepribadian yang ada pada
-              dirimu. Ketahuilah preferensi dan kecenderungan psikologimu sekarang!
-            </p>
+          <div className="col text-center">
+            <PaymentHeader title={"Tes kepribadian MBTI: Kenali dirimu lebih jauh!"} />
+            <PaymentSubHeader
+              title={
+                "Tes MBTI ini bertujuan untuk membantu memahami keunikan kepribadian yang ada pada dirimu. Ketahuilah preferensi dan kecenderungan psikologimu sekarang!"
+              }
+            />
           </div>
         </div>
       </div>
