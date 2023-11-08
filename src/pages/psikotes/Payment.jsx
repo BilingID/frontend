@@ -5,6 +5,7 @@ import { useState } from "react";
 import PaymentMethod from "./PaymentMethod";
 import PaymentStart from "./PaymentStart";
 import { PaymentHeader } from "components/payment/Header";
+import PaymentSuccess from "./PaymentSuccess";
 
 export const StepProgressBar = ({ steps, start = 0, className = "" }) => {
   return (
@@ -21,7 +22,7 @@ export const StepProgressBar = ({ steps, start = 0, className = "" }) => {
 };
 
 const Payment = () => {
-  const [progress, setProgress] = useState(1);
+  const [progress, setProgress] = useState(2);
 
   return (
     <MainLayout>
@@ -38,6 +39,7 @@ const Payment = () => {
         </div>
         {progress == 0 && <PaymentMethod />}
         {progress == 1 && <PaymentStart />}
+        {progress == 2 && <PaymentSuccess />}
       </div>
     </MainLayout>
   );

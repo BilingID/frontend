@@ -8,8 +8,14 @@ const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
   seconds = seconds.toString().padStart(2, "0");
 
   return (
-    <h3 className="my-4 text-danger">
-      {!completed ? `${hours} : ${minutes} : ${seconds}` : `Done!`}
+    <h3 className="my-4 ">
+      {completed ? (
+        <span className="text-danger">Waktu habis</span>
+      ) : (
+        <span className="bg-primary text-white py-1 px-4 rounded-corner">
+          {hours} : {minutes} : {seconds}
+        </span>
+      )}
     </h3>
   );
 };
@@ -35,7 +41,7 @@ const PaymentStart = () => {
         <div className="col d-flex flex-column gap-4">
           <div className="rounded-corner border bg-body-tertiary " style={{ padding: 30 }}>
             <h4>Batas pembayaran</h4>
-            <Countdown date={Date.now() + 60000 * 15} renderer={PaymentCountdown} />
+            <Countdown date={Date.now() + 10000} renderer={PaymentCountdown} />
             <p>
               Segera lakukan pembayaran. Pembayaran akan dibatalkan jika melewati batas waktu yang
               telah ditentukan
