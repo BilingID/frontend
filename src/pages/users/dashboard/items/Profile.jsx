@@ -207,6 +207,7 @@ const ProfilItem = () => {
             src={form?.profile_photo || "https://via.placeholder.com/130"}
             alt="profile"
             className="profile-img border border-3 p-2 border-primary"
+            referrerPolicy="no-referrer"
           />
           {isEditable && (
             <img

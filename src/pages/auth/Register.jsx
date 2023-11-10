@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FormInput, FormPassword } from "components/common/Form";
 
 import { ReactComponent as GoogleIcon } from "assets/icon/svg/google-icon.svg";
@@ -10,6 +10,16 @@ import registerUserByGoogle from "services/registerUserByGoogle";
 import { useUserContext } from "context/UserContext";
 
 const RegisterPage = () => {
+  const { user, setToken } = useUserContext();
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/users");
+    }
+  }, [user]);
+
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -17,8 +27,6 @@ const RegisterPage = () => {
     passwordConfirmation: "",
     acceptAggrement: false,
   });
-
-  const { setToken } = useUserContext();
 
   const handleGoogleLogin = (res) => {
     const accessToken = res.access_token;
