@@ -7,18 +7,19 @@ import RegisterPage from "pages/auth/Register";
 import ForgotPasswordPage from "pages/auth/ForgotPassword";
 import PsikotesPage from "pages/psikotes/Psikotes";
 import PaymentPage from "pages/psikotes/Payment";
+import { useUserContext } from "context/UserContext";
 
 const PrivateRoute = ({ element }) => {
-  const isAuthenticated = false; // TODO: check if user is authenticated
-  return isAuthenticated ? element : <Navigate to="/login" replace />;
+  const { user } = useUserContext();
+  return user ? element : <Navigate to="/login" replace />;
 };
 
 const Routes = () => {
   const routes = useRoutes([
     {
       path: "/users/*",
-      // element: <PrivateRoute element={<DashboardUsers />} />,
-      element: <DashboardUsers />,
+      element: <PrivateRoute element={<DashboardUsers />} />,
+      // element: <DashboardUsers />,
     },
     {
       path: "/psikotes/*",

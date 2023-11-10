@@ -7,26 +7,28 @@ import Routes from "routes";
 import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const App = () => {
   return (
     <UserProvider>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
+      <GoogleOAuthProvider clientId="900142679726-gnidev3k303igit8dbq8r193d3qq8bl2.apps.googleusercontent.com">
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss={false}
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </GoogleOAuthProvider>
     </UserProvider>
   );
 };

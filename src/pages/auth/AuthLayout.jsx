@@ -8,7 +8,7 @@ const FrameWrapper = ({ children, className, left }) => {
         className={`container bg-danger ${left ? "d-flex justify-content-end" : ""} `}
         style={{ paddingTop: "70px", maxWidth: "656px" }}
       > */}
-      <div className={`container   `} style={{ paddingTop: "70px", maxWidth: "556px" }}>
+      <div className={`container`} style={{ paddingTop: "70px", maxWidth: "556px" }}>
         <div>{children}</div>
       </div>
     </div>

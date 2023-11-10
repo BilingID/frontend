@@ -49,9 +49,9 @@ const SidebarLayout = () => {
         padding: "50px 30px",
       }}
     >
-      <div className="d-flex flex-column gap-3 mb-5">
+      <div className="d-flex flex-column gap-3 mb-5 text-break">
         <div className="fs-6">Hai,</div>
-        <h4>{user?.fullName}</h4>
+        <h4>{user?.fullname}</h4>
         <span>{user?.email}</span>
       </div>
       <div className="d-flex flex-column gap-3 fs-5">

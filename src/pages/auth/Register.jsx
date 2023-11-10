@@ -3,8 +3,11 @@ import { FormInput, FormPassword } from "components/common/Form";
 
 import { ReactComponent as GoogleIcon } from "assets/icon/svg/google-icon.svg";
 import AuthLayout from "./AuthLayout";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useGoogleLogin } from "@react-oauth/google";
+import registerUserByGoogle from "services/registerUserByGoogle";
+import { useUserContext } from "context/UserContext";
 
 const RegisterPage = () => {
   const [form, setForm] = useState({
@@ -13,6 +16,27 @@ const RegisterPage = () => {
     password: "",
     passwordConfirmation: "",
     acceptAggrement: false,
+  });
+
+  const { setToken } = useUserContext();
+
+  const handleGoogleLogin = (res) => {
+    const accessToken = res.access_token;
+    registerUserByGoogle(accessToken).then((res) => {
+      if (res.status === "success") {
+        toast.success("Registrasi Berhasil");
+      } else {
+        toast.error(res.message);
+      }
+      setToken(res.data?.token);
+    });
+  };
+
+  const googleLogin = useGoogleLogin({
+    onSuccess: (res) => handleGoogleLogin(res),
+    onError: (err) => {
+      toast.error(err.message);
+    },
   });
 
   const handleFormChange = (event) => {
@@ -49,7 +73,10 @@ const RegisterPage = () => {
         </Link>
       </p>
       <div className="text-center">
-        <button className="btn btn-default fw-normal bg-white shadow-btn fs-6 px-5">
+        <button
+          className="btn btn-default fw-normal bg-white shadow-btn fs-6 px-5"
+          onClick={googleLogin}
+        >
           <GoogleIcon className="me-2" /> Buat Akun dengan Google
         </button>
       </div>

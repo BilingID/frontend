@@ -20,14 +20,14 @@ const ProfilView = ({ user, handleClick }) => {
     <Fragment>
       <div className="row">
         <div className="col">
-          <ProfilField label="Nama" value={user?.fullName} />
-          <ProfilField label="Tanggal lahir" value={user?.dateOfBirth} />
-          <ProfilField label="Jenis kelamin" value={user?.gender} />
+          <ProfilField label="Nama" value={user?.fullname || "-"} />
+          <ProfilField label="Tanggal lahir" value={user?.date_of_birth || "-"} />
+          <ProfilField label="Jenis kelamin" value={user?.gender || "-"} />
         </div>
         <div className="col">
-          <ProfilField label="Nomor telepon" value={user?.phone} />
-          <ProfilField label="Email" value={user?.email} />
-          <ProfilField label="Kata sandi" value="********" />
+          <ProfilField label="Nomor telepon" value={user?.phone || "-"} />
+          <ProfilField label="Email" value={user?.email || "-"} />
+          <ProfilField label="Kata sandi" value={user?.isPasswordSet ? "********" : "-"} />
         </div>
       </div>
 
@@ -49,22 +49,22 @@ const EditableProfilView = ({ user, handleFormChange, handleFormSubmit }) => {
         <div className="col">
           <FormInput
             label="Nama"
-            value={user?.fullName}
-            name="fullName"
+            value={user?.fullname}
+            name="fullname"
             onChange={handleFormChange}
           />
 
           <FormInput
             type="date"
             label="Tanggal lahir"
-            value={user?.dateOfBirth}
-            name="dateOfBirth"
+            value={user?.date_of_birth}
+            name="date_of_birth"
             onChange={handleFormChange}
           />
 
           <FormRadios
             label="Jenis kelamin"
-            options={["Laki-Laki", "Perempuan"]}
+            options={["Laki-laki", "Perempuan"]}
             checked={user?.gender}
             onChange={handleFormChange}
           />
@@ -74,7 +74,7 @@ const EditableProfilView = ({ user, handleFormChange, handleFormSubmit }) => {
           <FormInput
             type="number"
             label="Nomor telepon"
-            value={user?.phone}
+            value={user?.phone || ""}
             name="phone"
             onChange={handleFormChange}
             onWheel={(event) => {
@@ -104,13 +104,13 @@ const EditableProfilView = ({ user, handleFormChange, handleFormSubmit }) => {
               </button>
             </div>
           </div>
-          <div className="d-flex flex-column gap-2 mb-4">
+          <div className="d-flex flex-column gap-2 mb-4 ">
             <label className="form-label fw-bold">Kata sandi</label>
             <div className="input-group">
               <input
                 type="text"
                 className="form-control"
-                value={"********"}
+                value={user?.isPasswordSet ? "********" : "-"}
                 style={{
                   width: "68%",
                 }}
@@ -166,10 +166,10 @@ const ProfilItem = () => {
   };
 
   // Profile picture handling
-  const profilePicture = useRef(null);
+  const profile_photo = useRef(null);
 
   const handleEditPicture = () => {
-    profilePicture.current.click();
+    profile_photo.current.click();
   };
 
   const handlePictureChange = (event) => {
@@ -184,7 +184,7 @@ const ProfilItem = () => {
     reader.onloadend = () => {
       setForm({
         ...form,
-        profilePicture: reader.result,
+        profile_photo: reader.result,
       });
     };
 
@@ -195,8 +195,8 @@ const ProfilItem = () => {
     <Fragment>
       <input
         type="file"
-        name="profilePicture"
-        ref={profilePicture}
+        name="profile_photo"
+        ref={profile_photo}
         onChange={handlePictureChange}
         className="d-none"
       />
@@ -204,7 +204,7 @@ const ProfilItem = () => {
         <div className="fs-2 border-bottom pb-3">Profil</div>
         <div className="text-center position-relative">
           <img
-            src={form?.profilePicture || "https://via.placeholder.com/130"}
+            src={form?.profile_photo || "https://via.placeholder.com/130"}
             alt="profile"
             className="profile-img border border-3 p-2 border-primary"
           />
