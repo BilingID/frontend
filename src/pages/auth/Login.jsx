@@ -21,7 +21,7 @@ const LoginPage = () => {
     }
   }, [user]);
 
-  const [googleUser, setGoogleUser] = useState([]);
+  const [googleUser, setGoogleUser] = useState(null);
 
   const googleLogin = useGoogleLogin({
     onSuccess: (res) => {

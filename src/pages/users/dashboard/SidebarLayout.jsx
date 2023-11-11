@@ -11,11 +11,11 @@ import { useUserContext } from "context/UserContext";
 
 const LOGIN_PATH = "/login";
 
-const Option = ({ icon, name, path }) => {
+const Option = ({ icon, name, path, handleClick }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleClick = () => {
+  const handleClickDefault = () => {
     navigate(path);
   };
 
@@ -28,7 +28,7 @@ const Option = ({ icon, name, path }) => {
           ? "text-danger"
           : "text-secondary"
       } `}
-      onClick={handleClick}
+      onClick={handleClick || handleClickDefault}
     >
       <div className="d-flex flex-grow-1 gap-2">
         {icon} {name}
@@ -40,7 +40,12 @@ const Option = ({ icon, name, path }) => {
 };
 
 const SidebarLayout = () => {
-  const { user } = useUserContext();
+  const { user, setUser, setToken } = useUserContext();
+
+  const clearSession = () => {
+    setUser(null);
+    setToken(null);
+  };
 
   return (
     <div
@@ -60,7 +65,7 @@ const SidebarLayout = () => {
         <Option icon={<CalendarIcon />} path="/users/jadwal" name="Jadwal" />
         {/* <Option icon={<ClipboardIcon />} path="/users/riwayat" name="Riwayat" />
         <Option icon={<SettingIcon />} path="/users/pengaturan" name="Pengaturan" /> */}
-        <Option icon={<LogoutIcon />} path={LOGIN_PATH} name="Keluar" />
+        <Option icon={<LogoutIcon />} path={LOGIN_PATH} name="Keluar" handleClick={clearSession} />
       </div>
     </div>
   );

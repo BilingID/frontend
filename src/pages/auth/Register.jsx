@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
 import registerUserByGoogle from "services/registerUserByGoogle";
 import { useUserContext } from "context/UserContext";
+import registerUser from "services/registerUser";
 
 const RegisterPage = () => {
   const { user, setToken } = useUserContext();
@@ -21,7 +22,7 @@ const RegisterPage = () => {
   }, [user]);
 
   const [form, setForm] = useState({
-    fullName: "",
+    fullname: "",
     email: "",
     password: "",
     passwordConfirmation: "",
@@ -64,11 +65,31 @@ const RegisterPage = () => {
   };
 
   const handleSubmit = (event) => {
+    toast.dismiss();
+    event.target.disabled = true;
+
     if (!form.acceptAggrement) {
       toast.warn("Kamu harus menyetujui syarat dan ketentuan");
       return;
     }
-    console.log(form);
+
+    if (form.password !== form.passwordConfirmation) {
+      toast.warn("Kata sandi tidak sama");
+      return;
+    }
+
+    registerUser(form)
+      .then((res) => {
+        if (res.status === "success") {
+          toast.success("Registrasi Berhasil");
+        } else {
+          toast.error(res.message);
+        }
+        setToken(res.data?.token);
+      })
+      .finally(() => {
+        event.target.disabled = false;
+      });
   };
 
   return (
@@ -92,7 +113,7 @@ const RegisterPage = () => {
       <FormInput
         label="Nama Lengkap"
         placeholder="Masukkan nama lengkapmu"
-        name="fullName"
+        name="fullname"
         onChange={handleFormChange}
       />
       <FormInput
