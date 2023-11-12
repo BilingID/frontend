@@ -2,13 +2,19 @@ import { FormInput, FormPassword } from "components/common/Form";
 import { useUserContext } from "context/UserContext";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import AuthService from "services/api/auth";
 
 const ChangeEmailItem = () => {
-  const { user, setUser } = useUserContext();
+  const { user, token, updateUserData } = useUserContext();
   const navigate = useNavigate();
 
   // Form state
-  const [form, setForm] = useState(user);
+  const [form, setForm] = useState({
+    oldEmail: user?.email,
+    email: "",
+    password: "",
+  });
 
   const handleFormChange = (event) => {
     setForm({
@@ -18,10 +24,35 @@ const ChangeEmailItem = () => {
   };
 
   // Form submission handling
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    setUser(form);
+    // is email
+    if (!form.email.includes("@")) {
+      toast.error("Email tidak valid");
+      return;
+    }
+
+    if (form.email === form.oldEmail) {
+      toast.error("Email tidak boleh sama");
+      return;
+    }
+
+    if (form.password.length < 8) {
+      toast.error("Kata sandi minimal 8 karakter");
+      return;
+    }
+
+    const { status, message, errors } = await AuthService.updateEmail(form, token);
+
+    if (status === "error" || errors) {
+      toast.error(message);
+      return;
+    }
+
+    toast.success("Email berhasil diubah");
+
+    updateUserData();
     navigate("/users");
   };
 
@@ -38,7 +69,7 @@ const ChangeEmailItem = () => {
       <FormInput
         label="Email Baru"
         type="email"
-        name="newEmail"
+        name="email"
         placeholder="Masukkan email baru"
         onChange={handleFormChange}
       />

@@ -6,9 +6,8 @@ import AuthLayout from "./AuthLayout";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useGoogleLogin } from "@react-oauth/google";
-import registerUserByGoogle from "services/registerUserByGoogle";
 import { useUserContext } from "context/UserContext";
-import registerUser from "services/registerUser";
+import AuthService from "services/api/auth";
 
 const RegisterPage = () => {
   const { user, setToken } = useUserContext();
@@ -31,7 +30,7 @@ const RegisterPage = () => {
 
   const handleGoogleLogin = (res) => {
     const accessToken = res.access_token;
-    registerUserByGoogle(accessToken).then((res) => {
+    AuthService.registerByGoogle(accessToken).then((res) => {
       if (res.status === "success") {
         toast.success("Registrasi Berhasil");
       } else {
@@ -78,7 +77,7 @@ const RegisterPage = () => {
       return;
     }
 
-    registerUser(form)
+    AuthService.register(form)
       .then((res) => {
         if (res.status === "success") {
           toast.success("Registrasi Berhasil");

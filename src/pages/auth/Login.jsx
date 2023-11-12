@@ -4,12 +4,11 @@ import { FormInput, FormPassword } from "components/common/Form";
 import { ReactComponent as GoogleIcon } from "assets/icon/svg/google-icon.svg";
 import AuthLayout from "./AuthLayout";
 import { useEffect, useState } from "react";
-import { googleLogout, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { useUserContext } from "context/UserContext";
 
 import { toast } from "react-toastify";
-import fetchUserByGoogleAuth from "services/fetchUserByGoogleAuth";
-import loginUser from "services/loginUser";
+import AuthService from "services/api/auth";
 
 const LoginPage = () => {
   const { user, setToken } = useUserContext();
@@ -34,7 +33,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (googleUser?.access_token) {
-      fetchUserByGoogleAuth(googleUser.access_token).then((res) => {
+      AuthService.fetchByGoogle(googleUser.access_token).then((res) => {
         setToken(res.data?.token);
 
         if (res.status === "success") toast.success("Login Berhasil");
@@ -65,7 +64,7 @@ const LoginPage = () => {
 
     event.target.disabled = true;
 
-    loginUser(form)
+    AuthService.login(form)
       .then((res) => {
         if (res.status === "success") {
           toast.success("Login Berhasil");

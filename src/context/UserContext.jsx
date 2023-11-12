@@ -1,7 +1,6 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import useSessionStorage from "../hooks/useSessionStorage";
-import { useGoogleLogin } from "@react-oauth/google";
-import fetchUser from "services/fetchUser";
+import AuthService from "services/api/auth";
 import moment from "moment";
 
 export const UserContext = createContext(null);
@@ -13,18 +12,24 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useSessionStorage("user", null);
   const [token, setToken] = useSessionStorage("accessToken", null);
 
+  const formatUser = (user) => {
+    return {
+      ...user,
+      date_of_birth: moment(user.date_of_birth).format("YYYY-MM-DD"),
+    };
+  };
+
+  const updateUserData = () => {
+    AuthService.fetch(token).then((res) => {
+      if (res.status === "success") {
+        setUser(formatUser(res.data.user));
+      }
+    });
+  };
+
   useEffect(() => {
     if (token) {
-      fetchUser(token).then((res) => {
-        if (res.status === "success") {
-          const data = res.data.user;
-
-          data.date_of_birth = moment(data.date_of_birth).format("YYYY-MM-DD");
-          data.gender = data.gender === "male" ? "Laki-laki" : "Perempuan";
-
-          setUser(data);
-        }
-      });
+      updateUserData();
     }
   }, [token]);
 
@@ -34,6 +39,8 @@ export const UserProvider = ({ children }) => {
     setUser: setUser,
     token: token,
     setToken: setToken,
+    updateUserData: updateUserData,
+    formatUser: formatUser,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

@@ -1,6 +1,9 @@
 import { ReactComponent as TickSuccess } from "assets/icon/svg/tick-circle.svg";
+import { useNavigate } from "react-router-dom";
 
 const PaymentSuccess = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="text-center">
       <TickSuccess className="mx-auto" />
@@ -10,8 +13,15 @@ const PaymentSuccess = () => {
         mengerjakan psikotesnya.
       </p>
       <div className="mx-auto my-5">
-        <button className="btn btn-default shadow-btn text-primary me-3">Kembali</button>
-        <button className="btn btn-primary shadow-btn">Halaman Tes</button>
+        <button
+          className="btn btn-default shadow-btn text-primary me-3"
+          onClick={() => navigate("/psikotes")}
+        >
+          Kembali
+        </button>
+        <button className="btn btn-primary shadow-btn" onClick={() => navigate("/psikotes")}>
+          Halaman Tes
+        </button>
       </div>
     </div>
   );

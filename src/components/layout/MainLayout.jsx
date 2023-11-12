@@ -91,7 +91,7 @@ const MainLayout = ({ children }) => {
                 <li className="nav-item">
                   <Link to="#faq" className="nav-link text-black">
                     <ProfileIcon className="me-2" />
-                    {user?.fullName}
+                    {user?.fullname}
                   </Link>
                 </li>
               </ul>

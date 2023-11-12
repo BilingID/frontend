@@ -1,15 +1,20 @@
 import { useNavigate } from "react-router-dom";
 
-import { FormInput, FormPassword } from "components/common/Form";
-import { useUserContext } from "context/UserContext";
+import { FormPassword } from "components/common/Form";
 import { useState } from "react";
+import AuthService from "services/api/auth";
+import { useUserContext } from "context/UserContext";
+import { toast } from "react-toastify";
 
 const ChangePasswordItem = () => {
-  const { user, setUser } = useUserContext();
   const navigate = useNavigate();
+  const { token, user, setUser } = useUserContext();
 
   // Form state
-  const [form, setForm] = useState(user);
+  const [form, setForm] = useState({
+    password: "",
+    passwordConfirmation: "",
+  });
 
   const handleFormChange = (event) => {
     setForm({
@@ -22,10 +27,29 @@ const ChangePasswordItem = () => {
   const handleFormSubmit = (event) => {
     event.preventDefault();
 
-    console.log(form);
+    if (form.password !== form.passwordConfirmation) {
+      toast.error("Kata sandi tidak sama");
+      return;
+    }
 
-    setUser(form);
-    navigate("/users");
+    if (form.password.length < 8 || form.passwordConfirmation.length < 8) {
+      toast.error("Kata sandi minimal 8 karakter");
+      return;
+    }
+
+    AuthService.updatePassword(form, token).then((res) => {
+      if (res.status === "success") {
+        toast.success("Kata sandi berhasil diubah");
+        setUser({
+          ...user,
+          isPasswordSet: 1,
+        });
+      } else {
+        toast.error("Kata sandi gagal diubah");
+      }
+
+      navigate("/users");
+    });
   };
 
   return (
