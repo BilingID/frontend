@@ -11,6 +11,11 @@ export const useUserContext = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useSessionStorage("user", null);
   const [token, setToken] = useSessionStorage("accessToken", null);
+  const [session, setSession] = useSessionStorage("session", {});
+
+  const userCreateSessionData = (key, value) => {
+    setSession({ ...session, [key]: value });
+  };
 
   const formatUser = (user) => {
     return {
@@ -41,6 +46,8 @@ export const UserProvider = ({ children }) => {
     setToken: setToken,
     updateUserData: updateUserData,
     formatUser: formatUser,
+    session: session,
+    userCreateSessionData: userCreateSessionData,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

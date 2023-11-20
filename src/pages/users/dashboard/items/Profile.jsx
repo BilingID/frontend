@@ -22,16 +22,19 @@ const ProfilView = ({ user, handleClick }) => {
       <div className="row">
         <div className="col">
           <ProfilField label="Nama" value={user?.fullname || "-"} />
-          <ProfilField label="Tanggal lahir" value={user?.date_of_birth || "-"} />
+          <ProfilField label="Tanggal lahir" value={user?.date_of_birth || ""} />
           <ProfilField
             label="Jenis kelamin"
-            value={(user?.gender === "male" ? "Laki-laki" : "Perempuan") || "-"}
+            value={user?.gender === "male" ? "Laki-laki" : "Perempuan"}
           />
         </div>
         <div className="col">
-          <ProfilField label="Nomor telepon" value={user?.phone || "-"} />
-          <ProfilField label="Email" value={user?.email || "-"} />
-          <ProfilField label="Kata sandi" value={user?.isPasswordSet ? "********" : "-"} />
+          <ProfilField label="Nomor telepon" value={user?.phone || "Belum ditentukan"} />
+          <ProfilField label="Email" value={user?.email} />
+          <ProfilField
+            label="Kata sandi"
+            value={user?.isPasswordSet ? "********" : "Belum ditentukan"}
+          />
         </div>
       </div>
 
@@ -87,7 +90,7 @@ const EditableProfilView = ({ form, handleFormChange, handleFormSubmit, hideForm
             }}
           />
 
-          <div className="d-flex flex-column gap-2 mb-4">
+          {/* <div className="d-flex flex-column gap-2 mb-4">
             <label className="form-label fw-bold">Email</label>
             <div className="input-group">
               <input
@@ -108,14 +111,15 @@ const EditableProfilView = ({ form, handleFormChange, handleFormSubmit, hideForm
                 Ubah
               </button>
             </div>
-          </div>
+          </div> */}
+
           <div className="d-flex flex-column gap-2 mb-4 ">
             <label className="form-label fw-bold">Kata sandi</label>
             <div className="input-group">
               <input
                 type="text"
                 className="form-control"
-                value={user?.isPasswordSet ? "********" : "-"}
+                value={user?.isPasswordSet ? "********" : "Belum ditentukan"}
                 style={{
                   width: "68%",
                 }}

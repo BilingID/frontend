@@ -34,10 +34,10 @@ const LoginPage = () => {
   useEffect(() => {
     if (googleUser?.access_token) {
       AuthService.fetchByGoogle(googleUser.access_token).then((res) => {
-        setToken(res.data?.token);
-
-        if (res.status === "success") toast.success("Login Berhasil");
-        else toast.warn(res.message);
+        if (res.status === "success") {
+          toast.success("Login Berhasil");
+          setToken(res.data?.token);
+        } else toast.warn(res.message);
       });
     }
   }, [googleUser]);

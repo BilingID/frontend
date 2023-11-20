@@ -6,7 +6,7 @@ import LoginPage from "pages/auth/Login";
 import RegisterPage from "pages/auth/Register";
 import ForgotPasswordPage from "pages/auth/ForgotPassword";
 import PsikotesPage from "pages/psikotes/Psikotes";
-import PaymentPage from "pages/psikotes/Payment";
+import PaymentPage from "pages/psikotes/payment/Payment";
 import { useUserContext } from "context/UserContext";
 
 const PrivateRoute = ({ element }) => {
@@ -22,12 +22,16 @@ const Routes = () => {
       // element: <DashboardUsers />,
     },
     {
-      path: "/psikotes/*",
+      path: "/psikotes",
       element: <PsikotesPage />,
     },
     {
       path: "/psikotes/payment",
       element: <PaymentPage />,
+    },
+    {
+      path: "/psikotes/:code/payment",
+      element: <PaymentPage step={1} />,
     },
     {
       path: "/",

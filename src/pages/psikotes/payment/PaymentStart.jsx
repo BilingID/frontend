@@ -1,5 +1,9 @@
-import QrCode from "assets/img/qr-example.png";
+import { useUserContext } from "context/UserContext";
+import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
+import QRCode from "react-qr-code";
+import { useParams } from "react-router-dom";
+import Psychotest from "services/api/psikotes";
 
 const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
   // padding
@@ -20,7 +24,15 @@ const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
   );
 };
 
-const PaymentStart = () => {
+const PaymentStart = (props) => {
+  const [payment, setPayment] = useState({});
+
+  const { code } = useParams();
+
+  useEffect(() => {
+    setPayment(props.payment);
+  }, []);
+
   return (
     <div>
       <div className="row">
@@ -32,16 +44,16 @@ const PaymentStart = () => {
             <p>#123456789 a/n Arla Sifhana Putri</p>
 
             <h5>Harga</h5>
-            <p>Rp. 50.000</p>
+            <p>Rp. {payment?.amount}</p>
 
             <h5>Metode pembayaran</h5>
-            <p>Rp. 50.000</p>
+            <p>Rp. {payment?.amount}</p>
           </div>
         </div>
         <div className="col d-flex flex-column gap-4">
           <div className="rounded-corner border bg-body-tertiary " style={{ padding: 30 }}>
-            <h4>Batas pembayaran</h4>
-            <Countdown date={Date.now() + 10000} renderer={PaymentCountdown} />
+            <h4>Batas pembayaran (TODO)</h4>
+            <Countdown date={Date.now() + 1000 * 60 * 15} renderer={PaymentCountdown} />
             <p>
               Segera lakukan pembayaran. Pembayaran akan dibatalkan jika melewati batas waktu yang
               telah ditentukan
@@ -49,8 +61,18 @@ const PaymentStart = () => {
           </div>
           <div className="rounded-corner border bg-body-tertiary " style={{ padding: 30 }}>
             <h4>Kode pembayaran</h4>
-            <img src={QrCode} className="my-4" />
+            {payment?.payment_code ? (
+              <QRCode
+                value={`http://localhost:8000/api/v1/psikotes/${code}/process`}
+                level="M"
+                className="my-4"
+              />
+            ) : (
+              <p>Belum ada kode pembayaran</p>
+            )}
+
             <p>Scan kode QR</p>
+            <a href={`http://localhost:8000/api/v1/psikotes/${code}/process`}>DEBUG PAY</a>
           </div>
         </div>
       </div>

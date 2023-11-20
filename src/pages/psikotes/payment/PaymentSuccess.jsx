@@ -1,7 +1,7 @@
 import { ReactComponent as TickSuccess } from "assets/icon/svg/tick-circle.svg";
 import { useNavigate } from "react-router-dom";
 
-const PaymentSuccess = () => {
+const PaymentSuccess = ({ updateProgress }) => {
   const navigate = useNavigate();
 
   return (

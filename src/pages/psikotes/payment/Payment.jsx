@@ -1,11 +1,14 @@
 import MainLayout from "components/layout/MainLayout";
 
 import style from "pages/styles/payment.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PaymentMethod from "./PaymentMethod";
 import PaymentStart from "./PaymentStart";
 import { PaymentHeader } from "components/payment/Header";
 import PaymentSuccess from "./PaymentSuccess";
+import { useUserContext } from "context/UserContext";
+import { useParams } from "react-router-dom";
+import Psychotest from "services/api/psikotes";
 
 export const StepProgressBar = ({ steps, start = 0, className = "" }) => {
   return (
@@ -21,8 +24,30 @@ export const StepProgressBar = ({ steps, start = 0, className = "" }) => {
   );
 };
 
-const Payment = () => {
-  const [progress, setProgress] = useState(2);
+const Payment = ({ step }) => {
+  const [progress, setProgress] = useState(step || 0);
+  const { token } = useUserContext();
+  const { code } = useParams();
+
+  const [payment, setPayment] = useState({});
+
+  const getPayment = async () => {
+    const { data } = await Psychotest.getPayment(token, code);
+
+    console.log(data);
+
+    if (data.status === "paid") {
+      setProgress(2);
+    } else {
+      setProgress(1);
+    }
+
+    setPayment(data);
+  };
+
+  useEffect(() => {
+    if (code) getPayment();
+  }, [code]);
 
   return (
     <MainLayout>
@@ -37,9 +62,9 @@ const Payment = () => {
             />
           </div>
         </div>
-        {progress == 0 && <PaymentMethod />}
-        {progress == 1 && <PaymentStart />}
-        {progress == 2 && <PaymentSuccess />}
+        {progress === 0 && <PaymentMethod setProgress={setProgress} />}
+        {progress === 1 && <PaymentStart payment={payment} />}
+        {progress === 2 && <PaymentSuccess />}
       </div>
     </MainLayout>
   );

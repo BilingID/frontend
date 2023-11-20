@@ -1,7 +1,12 @@
 import BankBcaIcon from "assets/icon/png/bca.png";
 
 import { ReactComponent as ArrowRightIcon } from "assets/icon/svg/arrow-right.svg";
+import { useUserContext } from "context/UserContext";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import Psychotest from "services/api/psikotes";
 
 export const PaymentBank = ({ bank, path }) => {
   return (
@@ -18,15 +23,28 @@ export const PaymentBank = ({ bank, path }) => {
 
 export const PaymentItem = ({ title, price, last = false, payed = false }) => {
   return (
-    <div className={`d-flex justify-content-between py-3 ${last && "border-bottom"}`}>
+    <div className={`d-flex justify-content-between py-3 ${last ? "border-bottom" : ""}`}>
       <span>{title}</span>
-      <span className={payed && "fw-bold text-primary"}>Rp. {price}</span>
+      <span className={payed ? "fw-bold text-primary" : ""}>Rp. {price}</span>
     </div>
   );
 };
 
-const PaymentMethod = () => {
+const PaymentMethod = ({ updateProgress }) => {
   const [toggleTransferBank, setToogleTransferBank] = useState(false);
+  const { token } = useUserContext();
+  const navigate = useNavigate();
+
+  const handlePsikotes = async () => {
+    const { data, message, status } = await Psychotest.create(token);
+
+    if (status === "error") {
+      toast.warn(message);
+      return;
+    }
+
+    navigate(`/psikotes/${data.code}/payment`);
+  };
 
   return (
     <div className="row">
@@ -54,7 +72,9 @@ const PaymentMethod = () => {
           )}
         </div>
         <div className="d-flex justify-content-end">
-          <button className="btn btn-primary my-4">Bayar Sekarang</button>
+          <button className="btn btn-primary my-4" onClick={handlePsikotes}>
+            Bayar Sekarang
+          </button>
         </div>
       </div>
 

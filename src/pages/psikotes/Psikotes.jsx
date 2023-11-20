@@ -1,7 +1,10 @@
 import MainLayout from "components/layout/MainLayout";
 import { PaymentHeader, PaymentSubHeader } from "components/payment/Header";
+import { useNavigate } from "react-router-dom";
 
 const Psikotes = () => {
+  const navigate = useNavigate();
+
   return (
     <MainLayout>
       <div className="container my-5">
@@ -37,7 +40,9 @@ const Psikotes = () => {
               <li className="list-group-item border-0">Isilah semua pertanyaan dengan lengkap.</li>
             </ol>
             <h4 className="mb-5">Selamat memulai tes!</h4>
-            <button className="btn btn-primary">Mulai</button>
+            <button className="btn btn-primary" onClick={() => navigate("payment")}>
+              Mulai
+            </button>
           </div>
         </div>
       </div>

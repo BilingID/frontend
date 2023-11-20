@@ -4,9 +4,9 @@ export const ListContainer = ({ children }) => {
   return <div className="d-flex flex-column gap-4">{children}</div>;
 };
 
-export const ListItem = ({ label, paymentDate, date, status }) => {
+export const ListItem = ({ label, paymentDate, date, status, ...props }) => {
   return (
-    <div className="border rounded-corner">
+    <div className="border rounded-corner" {...props}>
       <div className="d-flex m-4 gap-4">
         <div
           className={`${
