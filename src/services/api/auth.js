@@ -9,11 +9,20 @@ class Auth {
     });
   }
 
-  handleError = (error) => error.response.data;
+  handleError = (error) => {
+    if (!error.response) {
+      error.response = {
+        data: {
+          message: "Tidak dapat terhubung ke server",
+        },
+      };
+    }
+    return error.response.data;
+  };
 
-  login = (form) =>
+  login = (body) =>
     this.api
-      .post("/auth/login", form)
+      .post("/auth/login", body)
       .then((res) => res.data)
       .catch(this.handleError);
 
@@ -23,9 +32,9 @@ class Auth {
       .then((res) => res.data)
       .catch(this.handleError);
 
-  register = (form) =>
+  register = (body) =>
     this.api
-      .post("/auth/register", form)
+      .post("/auth/register", body)
       .then((res) => res.data)
       .catch(this.handleError);
 
