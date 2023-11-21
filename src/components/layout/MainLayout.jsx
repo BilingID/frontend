@@ -17,8 +17,8 @@ const MainLayout = ({ children }) => {
   };
 
   return (
-    <div className="bg-white ">
-      <div className="min-vh-100">
+    <div className="bg-white">
+      <div style={{ minHeight: "88vh" }}>
         <nav className="navbar navbar-expand-lg ">
           <div className="container">
             <div className="navbar-brand fs-2 btn" onClick={() => navigate("/")}>
@@ -89,7 +89,7 @@ const MainLayout = ({ children }) => {
             <div className="collapse navbar-collapse" id="nav-toggler">
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-5">
                 <li className="nav-item">
-                  <Link to="#faq" className="nav-link text-black">
+                  <Link to="/users" className="nav-link text-black">
                     <ProfileIcon className="me-2" />
                     {user?.fullname}
                   </Link>

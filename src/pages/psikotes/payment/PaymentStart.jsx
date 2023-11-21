@@ -1,4 +1,5 @@
 import { useUserContext } from "context/UserContext";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import QRCode from "react-qr-code";
@@ -24,14 +25,13 @@ const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
   );
 };
 
-const PaymentStart = (props) => {
-  const [payment, setPayment] = useState({});
-
+const PaymentStart = ({ payment }) => {
   const { code } = useParams();
+  const [expiredAt, setExpiredAt] = useState(null);
 
   useEffect(() => {
-    setPayment(props.payment);
-  }, []);
+    setExpiredAt(new Date(payment?.expired_at?.slice(0, -1)).getTime());
+  }, [payment]);
 
   return (
     <div>
@@ -52,8 +52,8 @@ const PaymentStart = (props) => {
         </div>
         <div className="col d-flex flex-column gap-4">
           <div className="rounded-corner border bg-body-tertiary " style={{ padding: 30 }}>
-            <h4>Batas pembayaran (TODO)</h4>
-            <Countdown date={Date.now() + 1000 * 60 * 15} renderer={PaymentCountdown} />
+            <h4>Batas pembayaran</h4>
+            {expiredAt && <Countdown date={expiredAt} renderer={PaymentCountdown} />}
             <p>
               Segera lakukan pembayaran. Pembayaran akan dibatalkan jika melewati batas waktu yang
               telah ditentukan

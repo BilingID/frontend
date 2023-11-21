@@ -1,6 +1,6 @@
 import { Navigate, useRoutes } from "react-router-dom";
 
-import DashboardUsers from "pages/users/dashboard";
+import DashboardUsers from "pages/users/dashboard/Dashboard";
 import Landing from "pages/Landing";
 import LoginPage from "pages/auth/Login";
 import RegisterPage from "pages/auth/Register";
@@ -8,6 +8,8 @@ import ForgotPasswordPage from "pages/auth/ForgotPassword";
 import PsikotesPage from "pages/psikotes/Psikotes";
 import PaymentPage from "pages/psikotes/payment/Payment";
 import { useUserContext } from "context/UserContext";
+import AttemptPsikotes from "pages/psikotes/attempt/PsikotesAttempt";
+import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
 
 const PrivateRoute = ({ element }) => {
   const { user } = useUserContext();
@@ -28,6 +30,14 @@ const Routes = () => {
     {
       path: "/psikotes/payment",
       element: <PaymentPage />,
+    },
+    {
+      path: "/psikotes/attempt",
+      element: <AttemptPsikotesIndex />,
+    },
+    {
+      path: "/psikotes/:code/attempt",
+      element: <AttemptPsikotesIndex />,
     },
     {
       path: "/psikotes/:code/payment",

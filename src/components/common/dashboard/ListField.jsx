@@ -4,7 +4,7 @@ export const ListContainer = ({ children }) => {
   return <div className="d-flex flex-column gap-4">{children}</div>;
 };
 
-export const ListItem = ({ label, paymentDate, date, status, ...props }) => {
+export const ListItem = ({ label, paymentDate, date, status, handleButton, ...props }) => {
   return (
     <div className="border rounded-corner" {...props}>
       <div className="d-flex m-4 gap-4">
@@ -38,13 +38,13 @@ export const ListItem = ({ label, paymentDate, date, status, ...props }) => {
 
         {paymentDate ? (
           <div className="d-flex flex-column justify-content-center align-items-center gap-2 me-4">
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={handleButton}>
               {status === 1 ? "Mulai Tes" : "Lihat Hasil"}
             </button>
           </div>
         ) : (
           <div className="d-flex flex-column justify-content-center align-items-center gap-2 me-4">
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={handleButton}>
               {status === 1 ? "Mulai Konseling" : "Lihat Diagnosa"}
             </button>
           </div>

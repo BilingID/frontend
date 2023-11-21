@@ -37,6 +37,12 @@ class Psychotest {
       .get(`/psikotes/${code}`, { headers: { Authorization: `Bearer ${accessToken}` } })
       .then((res) => res.data)
       .catch(this.handleError);
+
+  getQuestions = (accessToken, code) =>
+    this.api
+      .get(`/psikotes/${code}/questions`, { headers: { Authorization: `Bearer ${accessToken}` } })
+      .then((res) => res.data)
+      .catch(this.handleError);
 }
 
 export default new Psychotest();
