@@ -45,7 +45,8 @@ const Routes = () => {
     },
     {
       path: "/",
-      element: <PrivateRoute element={<Landing />} />,
+      // element: <PrivateRoute element={<Landing />} />,
+      element: <Landing />,
     },
     {
       path: "/login",

@@ -90,8 +90,14 @@ const MainLayout = ({ children }) => {
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-5">
                 <li className="nav-item">
                   <Link to="/users" className="nav-link text-black">
-                    <ProfileIcon className="me-2" />
-                    {user?.fullname}
+                    {user?.fullname ? (
+                      <>
+                        <ProfileIcon className="me-2" />
+                        {user?.fullname}
+                      </>
+                    ) : (
+                      <button className="btn btn-primary">Masuk</button>
+                    )}
                   </Link>
                 </li>
               </ul>

@@ -95,6 +95,27 @@ body {
   background: #fff;
 }
 
+.section-3-list {
+  list-style: none;
+  padding: 0;
+  font-size: 18px;
+  margin-bottom: 17px;
+}
+
+/* make dot before list */
+.section-3-list::before {
+  content: "";
+  background-color: #2e7df1;
+  width: 20px;
+  height: 20px;
+  margin-left: -32px;
+  display: inline-block;
+  margin-right: 12px;
+  background-position: center;
+  vertical-align: middle;
+  border-radius: 50%;
+}
+
 * {
   font-family: "Poppins", sans-serif;
 }
