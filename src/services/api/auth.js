@@ -26,6 +26,12 @@ class Auth {
       .then((res) => res.data)
       .catch(this.handleError);
 
+  logout = (token) =>
+    this.api
+      .post("/auth/logout", null, { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => res.data)
+      .catch(this.handleError);
+
   fetchByGoogle = (accessToken) =>
     this.api
       .post("/auth/google", { access_token: accessToken })

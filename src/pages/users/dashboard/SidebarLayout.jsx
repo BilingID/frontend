@@ -8,6 +8,8 @@ import { ReactComponent as LogoutIcon } from "assets/icon/svg/logout.svg";
 import { ReactComponent as ArrowRightIcon } from "assets/icon/svg/arrow-right.svg";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useUserContext } from "context/UserContext";
+import Auth from "services/api/auth";
+import { toast } from "react-toastify";
 
 const LOGIN_PATH = "/login";
 
@@ -40,9 +42,18 @@ const Option = ({ icon, name, path, handleClick }) => {
 };
 
 const SidebarLayout = () => {
-  const { user, setUser, setToken } = useUserContext();
+  const { user, setUser, token, setToken } = useUserContext();
 
   const clearSession = () => {
+    const { data, status, message } = Auth.logout(token);
+
+    if (status !== "success") {
+      toast.warn(message);
+      return;
+    }
+
+    toast.success(message);
+
     setUser(null);
     setToken(null);
   };

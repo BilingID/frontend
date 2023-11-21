@@ -10,6 +10,7 @@ import PaymentPage from "pages/psikotes/payment/Payment";
 import { useUserContext } from "context/UserContext";
 import AttemptPsikotes from "pages/psikotes/attempt/PsikotesAttempt";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
+import Tes from "pages/users/Tes";
 
 const PrivateRoute = ({ element }) => {
   const { user } = useUserContext();
@@ -42,6 +43,10 @@ const Routes = () => {
     {
       path: "/psikotes/:code/payment",
       element: <PaymentPage step={1} />,
+    },
+    {
+      path: "/tes",
+      element: <Tes />,
     },
     {
       path: "/",

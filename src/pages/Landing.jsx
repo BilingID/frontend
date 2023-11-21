@@ -15,8 +15,8 @@ const DotNumber = ({ number }) => (
   </div>
 );
 
-const StatisticItem = ({ icon, number, label }) => (
-  <div className="col-3 py-4 border-end">
+const StatisticItem = ({ icon, number, label, last }) => (
+  <div className={`col-3 py-4 ${!last && "border-end"}`}>
     <div
       className="text-primary container bg-primary-transparent d-flex justify-content-center align-items-center rounded-circle"
       style={{ width: 100, height: 100 }}
@@ -101,7 +101,13 @@ const Landing = () => {
         <span>Platform Konseling Online di Indonesia</span>
         <div className="row justify-content-center" style={{ margin: "90px 0" }}>
           {statisticData.map((item, index) => (
-            <StatisticItem key={index} icon={item.icon} number={item.number} label={item.label} />
+            <StatisticItem
+              key={index}
+              icon={item.icon}
+              number={item.number}
+              label={item.label}
+              last={index == statisticData.length - 1}
+            />
           ))}
         </div>
       </section>
