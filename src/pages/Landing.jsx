@@ -5,6 +5,9 @@ import { ReactComponent as BatteryEmpty } from "assets/icon/svg/battery-empty.sv
 import { ReactComponent as People } from "assets/icon/svg/people.svg";
 import Section3Left from "assets/img/section-3-left.png";
 import Section3Right from "assets/img/section-3-right.png";
+import { ReactComponent as ArrowDown } from "assets/icon/svg/arrow-down.svg";
+import { ReactComponent as ArrowRight } from "assets/icon/svg/arrow-right.svg";
+import { useState } from "react";
 
 const DotNumber = ({ number }) => (
   <div
@@ -15,8 +18,8 @@ const DotNumber = ({ number }) => (
   </div>
 );
 
-const StatisticItem = ({ icon, number, label, last }) => (
-  <div className={`col-3 py-4 ${!last && "border-end"}`}>
+const StatisticItem = ({ icon, number, label, last, ...props }) => (
+  <div className={`col-3 py-4 ${!last && "border-end"}`} {...props}>
     <div
       className="text-primary container bg-primary-transparent d-flex justify-content-center align-items-center rounded-circle"
       style={{ width: 100, height: 100 }}
@@ -71,6 +74,44 @@ const Landing = () => {
         "Dengan konseling yang kamu lakukan, kamu akan mendapatkan kehidupan yang lebih baik",
     },
   ];
+
+  const faqData = [
+    {
+      question: "Apa saja yang akan saya dapatkan setelah konseling?",
+      answer:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate voluptates dolorem necessitatibus maiores? Iusto repellat accusamus vero provident exercitationem. Architecto.",
+    },
+    {
+      question: "Konseling itu prosesnya seperti apa?",
+      answer:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate voluptates dolorem necessitatibus maiores? Iusto repellat accusamus vero provident exercitationem. Architecto.",
+    },
+    {
+      question: "Berapa lama durasi sesi konseling online?",
+      answer:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate voluptates dolorem necessitatibus maiores? Iusto repellat accusamus vero provident exercitationem. Architecto.",
+    },
+    {
+      question: "Platform apa yang digunakan untuk konseling online?",
+      answer:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate voluptates dolorem necessitatibus maiores? Iusto repellat accusamus vero provident exercitationem. Architecto.",
+    },
+    {
+      question: "Apakah privasi dan kerahasiaan cerita saya terjamin?",
+      answer:
+        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate voluptates dolorem necessitatibus maiores? Iusto repellat accusamus vero provident exercitationem. Architecto.",
+    },
+  ];
+
+  const [showFaq, setShowFaq] = useState([false, false, false, false, false]);
+
+  const handleFaqClick = (index) => {
+    setShowFaq((prevState) => {
+      const newState = [...prevState];
+      newState[index] = !newState[index];
+      return newState;
+    });
+  };
 
   return (
     <MainLayout>
@@ -148,9 +189,9 @@ const Landing = () => {
 
         <div className="row mt-5">
           {steps.map((step, index) => (
-            <div className="col-4 my-3">
+            <div className="col-4 my-3" key={index}>
               <div
-                class="text-start px-4 pt-4 pb-5 bg-white shadow-btn"
+                className="text-start px-4 pt-4 pb-5 bg-white shadow-btn"
                 style={{
                   borderTop: "10px solid #2E7DF1",
                   borderRadius: "0 0 40px 40px",
@@ -160,6 +201,32 @@ const Landing = () => {
                 <DotNumber number={step.number} />
                 <h4 className="mt-4 mb-3">{step.title}</h4>
                 <span className="lh-lg">{step.description}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        id="frequently-answer-question"
+        className="container container-fluid text-center my-5 py-5"
+      >
+        <h2>FAQ BiLing.ID</h2>
+        <span>Pertanyaan seputar bimbingan konseling online</span>
+
+        <div className="container text-start rounded-corner shadow-btn py-2 mt-5">
+          {faqData.map((item, index) => (
+            <div className="px-3 pe-auto" onClick={() => handleFaqClick(index)}>
+              <div className="py-3 d-flex justify-content-between align-items-center">
+                <h4 className="fw-normal">{item.question}</h4>
+                {!showFaq[index] ? (
+                  <ArrowRight width={48} height={48} />
+                ) : (
+                  <ArrowDown width={48} height={48} />
+                )}
+              </div>
+              <div className={index != faqData.length - 1 ? "border-bottom" : ""}>
+                <h5 className={`pb-3 fw-normal ${!showFaq[index] && "d-none"}`}>{item.answer}</h5>
               </div>
             </div>
           ))}

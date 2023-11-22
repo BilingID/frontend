@@ -8,13 +8,19 @@ import ForgotPasswordPage from "pages/auth/ForgotPassword";
 import PsikotesPage from "pages/psikotes/Psikotes";
 import PaymentPage from "pages/psikotes/payment/Payment";
 import { useUserContext } from "context/UserContext";
-import AttemptPsikotes from "pages/psikotes/attempt/PsikotesAttempt";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
-import Tes from "pages/users/Tes";
+import { toast } from "react-toastify";
 
 const PrivateRoute = ({ element }) => {
   const { user } = useUserContext();
-  return user ? element : <Navigate to="/login" replace />;
+
+  if (!user) {
+    toast.warn("Anda harus login terlebih dahulu");
+
+    return <Navigate to="/login" replace />;
+  }
+
+  return element;
 };
 
 const Routes = () => {
@@ -22,35 +28,30 @@ const Routes = () => {
     {
       path: "/users/*",
       element: <PrivateRoute element={<DashboardUsers />} />,
-      // element: <DashboardUsers />,
     },
     {
       path: "/psikotes",
-      element: <PsikotesPage />,
+      element: <PrivateRoute element={<PsikotesPage />} />,
     },
     {
       path: "/psikotes/payment",
-      element: <PaymentPage />,
+      element: <PrivateRoute element={<PaymentPage />} />,
     },
     {
       path: "/psikotes/attempt",
-      element: <AttemptPsikotesIndex />,
+      element: <PrivateRoute element={<AttemptPsikotesIndex />} />,
     },
     {
       path: "/psikotes/:code/attempt",
-      element: <AttemptPsikotesIndex />,
+      element: <PrivateRoute element={<AttemptPsikotesIndex />} />,
     },
     {
       path: "/psikotes/:code/payment",
-      element: <PaymentPage step={1} />,
+      element: <PrivateRoute element={<PaymentPage step={1} />} />,
     },
-    {
-      path: "/tes",
-      element: <Tes />,
-    },
+
     {
       path: "/",
-      // element: <PrivateRoute element={<Landing />} />,
       element: <Landing />,
     },
     {
@@ -63,7 +64,7 @@ const Routes = () => {
     },
     {
       path: "/forgot-password",
-      element: <ForgotPasswordPage />,
+      element: <PrivateRoute element={<ForgotPasswordPage />} />,
     },
     {
       path: "*",

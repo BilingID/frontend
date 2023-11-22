@@ -80,7 +80,7 @@ const MainLayout = ({ children }) => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="#faq" className="nav-link text-black">
+                  <Link to="#frequently-answer-question" className="nav-link text-black">
                     FAQ
                   </Link>
                 </li>
