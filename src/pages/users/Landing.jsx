@@ -129,7 +129,7 @@ const Landing = () => {
               Dengan bimbingan konseling online, kamu mendapatkan bantuan, menjadi lebih baik, dan
               kamu pantas untuk bahagia.
             </span>
-            <button className="btn btn-primary">Simulasikan Psikotes</button>
+            <button className="btn btn-primary">Mulai Psikotes</button>
           </div>
           <div lg={3} className="col mt-5">
             <img src={LandingImg} alt="Landing" width={342} height={540} />

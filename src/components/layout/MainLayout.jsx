@@ -6,7 +6,7 @@ import { useUserContext } from "context/UserContext";
 
 import { ReactComponent as ProfileIcon } from "assets/icon/svg/profile.svg";
 
-const MainLayout = ({ children }) => {
+const MainLayout = ({ shadow, children }) => {
   const navigate = useNavigate();
   const { user } = useUserContext();
 
@@ -18,8 +18,8 @@ const MainLayout = ({ children }) => {
 
   return (
     <div className="bg-white">
-      <div style={{ minHeight: "88vh" }}>
-        <nav className="navbar navbar-expand-lg ">
+      <div style={{ minHeight: "70vh" }}>
+        <nav className="navbar navbar-expand-lg" style={{ boxShadow: !shadow && "none" }}>
           <div className="container">
             <div className="navbar-brand fs-2 btn" onClick={() => navigate("/")}>
               BiLing.ID
@@ -89,16 +89,16 @@ const MainLayout = ({ children }) => {
             <div className="collapse navbar-collapse" id="nav-toggler">
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center gap-5">
                 <li className="nav-item">
-                  <Link to="/users" className="nav-link text-black">
-                    {user?.fullname ? (
-                      <>
-                        <ProfileIcon className="me-2" />
-                        {user?.fullname}
-                      </>
-                    ) : (
+                  {user?.fullname ? (
+                    <Link to="/users" className="nav-link text-black">
+                      <ProfileIcon className="me-2" />
+                      {user?.fullname}
+                    </Link>
+                  ) : (
+                    <Link to="/login" className="nav-link text-black">
                       <button className="btn btn-primary">Masuk</button>
-                    )}
-                  </Link>
+                    </Link>
+                  )}
                 </li>
               </ul>
             </div>

@@ -1,17 +1,16 @@
 import { Navigate, useRoutes } from "react-router-dom";
 
 import DashboardUsers from "pages/users/dashboard/Dashboard";
-import Landing from "pages/Landing";
+import Landing from "pages/users/Landing";
 import LoginPage from "pages/auth/Login";
 import RegisterPage from "pages/auth/Register";
 import ForgotPasswordPage from "pages/auth/ForgotPassword";
 import PsikotesPage from "pages/psikotes/Psikotes";
 import PaymentPage from "pages/psikotes/payment/Payment";
-import KonselingPage from "pages/users/dashboard/items/Konseling";
-import DiagnosaPage from "pages/users/dashboard/items/Diagnosa";
-import HasilDiagnosa from "pages/users/dashboard/items/HasilDiagnosa";
-import HasilPsikotes from "pages/users/dashboard/items/HasilPsikotes";
-import MulaiKonseling from "pages/users/dashboard/items/MulaiKonseling";
+import DiagnosaPage from "pages/konseling/Diagnosa";
+import HasilDiagnosa from "pages/konseling/HasilDiagnosa";
+import HasilPsikotes from "pages/psikotes/result/HasilPsikotes";
+import MulaiKonseling from "pages/konseling/MulaiKonseling";
 
 import { useUserContext } from "context/UserContext";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
@@ -55,7 +54,6 @@ const Routes = () => {
       path: "/psikotes/:code/payment",
       element: <PrivateRoute element={<PaymentPage step={1} />} />,
     },
-
     {
       path: "/",
       element: <Landing />,
@@ -78,26 +76,20 @@ const Routes = () => {
     },
     {
       path: "/users/konseling",
-      element: <KonselingPage />,
+      element: <MulaiKonseling />,
     },
     {
       path: "/users/hasilPsikotes",
-      element: <HasilPsikotes/>,
+      element: <HasilPsikotes />,
     },
     {
       path: "/users/hasilpsikotes/diagnosa",
-      element: <DiagnosaPage/>,
+      element: <DiagnosaPage />,
     },
     {
       path: "/users/hasildiagnosa",
-      element: <HasilDiagnosa/>,
+      element: <HasilDiagnosa />,
     },
-    {
-      path: "/users/mulaikonseling",
-      element: <MulaiKonseling/>,
-    },
-
-
   ]);
 
   return routes;
