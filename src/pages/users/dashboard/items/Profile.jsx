@@ -73,6 +73,7 @@ const EditableProfilView = ({ form, handleFormChange, handleFormSubmit, hideForm
           <FormRadios
             label="Jenis kelamin"
             options={["Laki-laki", "Perempuan"]}
+            name="gender"
             checked={user?.gender === "male" ? "Laki-laki" : "Perempuan"}
             onChange={handleFormChange}
           />
