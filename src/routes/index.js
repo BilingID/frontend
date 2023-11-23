@@ -11,6 +11,8 @@ import DiagnosaPage from "pages/konseling/Diagnosa";
 import HasilDiagnosa from "pages/konseling/HasilDiagnosa";
 import HasilPsikotes from "pages/psikotes/result/HasilPsikotes";
 import MulaiKonseling from "pages/konseling/MulaiKonseling";
+import MemilihPsikolog from "pages/konseling/MemilihPsikolog";
+import ProfilPsikolog from "pages/konseling/ProfilePsikolog.jsx";
 
 import { useUserContext } from "context/UserContext";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
@@ -75,7 +77,7 @@ const Routes = () => {
       element: <Navigate to="/" replace />, // debug
     },
     {
-      path: "/users/konseling",
+      path: "/users/mulaikonseling",
       element: <MulaiKonseling />,
     },
     {
@@ -89,6 +91,14 @@ const Routes = () => {
     {
       path: "/users/hasildiagnosa",
       element: <HasilDiagnosa />,
+    },
+    {
+      path: "/daftarpsikolog",
+      element: <MemilihPsikolog />,
+    },
+    {
+      path: "/daftarpsikolog/profilepsikolog",
+      element: <ProfilPsikolog />,
     },
   ]);
 
