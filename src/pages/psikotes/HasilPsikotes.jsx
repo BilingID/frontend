@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 const HasilPsikotes = () => {
   const navigate = useNavigate();
-  const handleNavigate = () => {
-    navigate(-1);
-  };
+
   return (
     <MainLayout>
       <div className="container container-fluid text-center py-5">
@@ -20,14 +18,14 @@ const HasilPsikotes = () => {
           <button
             className="btn btn-primary"
             style={{ marginTop: 100, marginBottom: 50 }}
-            onClick={handleNavigate}
+            onClick={() => navigate(-1)}
           >
             Sebelumnya
           </button>
           <button
             className="btn btn-primary"
             style={{ marginTop: 100, marginBottom: 50 }}
-            onClick={() => navigate("Diagnosa")}
+            onClick={() => navigate("diagnosa")}
           >
             Selanjutnya
           </button>

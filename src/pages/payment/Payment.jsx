@@ -25,7 +25,7 @@ export const StepProgressBar = ({ steps, start = 0, className = "" }) => {
   );
 };
 
-const Payment = ({ step }) => {
+const Payment = ({ step, label }) => {
   const [progress, setProgress] = useState(step || 0);
   const { token } = useUserContext();
   const { code } = useParams();
@@ -34,8 +34,6 @@ const Payment = ({ step }) => {
 
   const getPayment = async () => {
     const { data } = await Psychotest.getPayment(token, code);
-
-    console.log(data);
 
     if (data.status === "paid") {
       setProgress(2);
@@ -55,7 +53,7 @@ const Payment = ({ step }) => {
       <div className="container my-5">
         <div className="row">
           <div className="col text-center">
-            <PaymentHeader title={"Pembayaran Psikotes"} />
+            <PaymentHeader title={`Pembayaran ${label}`} />
             <StepProgressBar
               steps={["Metode pembayaran", "Konfirmasi pembayaran", "Pembayaran selesai"]}
               start={progress}

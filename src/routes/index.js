@@ -6,13 +6,13 @@ import LoginPage from "pages/auth/Login";
 import RegisterPage from "pages/auth/Register";
 import ForgotPasswordPage from "pages/auth/ForgotPassword";
 import PsikotesPage from "pages/psikotes/Psikotes";
-import PaymentPage from "pages/psikotes/payment/Payment";
+import PaymentPage from "pages/payment/Payment";
 import DiagnosaPage from "pages/konseling/Diagnosa";
 import HasilDiagnosa from "pages/konseling/HasilDiagnosa";
-import HasilPsikotes from "pages/psikotes/result/HasilPsikotes";
+import HasilPsikotes from "pages/psikotes/HasilPsikotes";
 import MulaiKonseling from "pages/konseling/MulaiKonseling";
-import MemilihPsikolog from "pages/konseling/MemilihPsikolog";
-import ProfilPsikolog from "pages/konseling/ProfilePsikolog.jsx";
+import KonselingHome from "pages/konseling/KonselingHome";
+import ShowProfile from "pages/konseling/ShowProfile";
 
 import { useUserContext } from "context/UserContext";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
@@ -42,7 +42,7 @@ const Routes = () => {
     },
     {
       path: "/psikotes/payment",
-      element: <PrivateRoute element={<PaymentPage />} />,
+      element: <PrivateRoute element={<PaymentPage label={"Psikotes"} />} />,
     },
     {
       path: "/psikotes/attempt",
@@ -54,7 +54,7 @@ const Routes = () => {
     },
     {
       path: "/psikotes/:code/payment",
-      element: <PrivateRoute element={<PaymentPage step={1} />} />,
+      element: <PrivateRoute element={<PaymentPage step={1} label={"Psikotes"} />} />,
     },
     {
       path: "/",
@@ -77,28 +77,32 @@ const Routes = () => {
       element: <Navigate to="/" replace />, // debug
     },
     {
-      path: "/users/mulaikonseling",
+      path: "/konseling/start",
       element: <MulaiKonseling />,
     },
     {
-      path: "/users/hasilPsikotes",
+      path: "/konseling/result",
       element: <HasilPsikotes />,
     },
     {
-      path: "/users/hasilpsikotes/diagnosa",
+      path: "/konseling/diagnosa",
       element: <DiagnosaPage />,
     },
     {
-      path: "/users/hasildiagnosa",
+      path: "/konseling/result/diagnosa",
       element: <HasilDiagnosa />,
     },
     {
-      path: "/daftarpsikolog",
-      element: <MemilihPsikolog />,
+      path: "/konseling",
+      element: <KonselingHome />,
     },
     {
-      path: "/daftarpsikolog/profilepsikolog",
-      element: <ProfilPsikolog />,
+      path: "/konseling/payment",
+      element: <PrivateRoute element={<PaymentPage label={"Konseling"} />} />,
+    },
+    {
+      path: "/konseling/profile",
+      element: <ShowProfile />,
     },
   ]);
 

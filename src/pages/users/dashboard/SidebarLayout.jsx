@@ -43,9 +43,10 @@ const Option = ({ icon, name, path, handleClick }) => {
 
 const SidebarLayout = () => {
   const { user, setUser, token, setToken } = useUserContext();
+  const navigate = useNavigate();
 
-  const clearSession = () => {
-    const { data, status, message } = Auth.logout(token);
+  const clearSession = async () => {
+    const { data, status, message } = await Auth.logout(token);
 
     if (status !== "success") {
       toast.warn(message);
@@ -56,6 +57,8 @@ const SidebarLayout = () => {
 
     setUser(null);
     setToken(null);
+
+    navigate(LOGIN_PATH);
   };
 
   return (

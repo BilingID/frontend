@@ -33,6 +33,8 @@ const PsikotesItem = () => {
     <div className="box px-5 py-5">
       <div className="fs-2 border-bottom pb-3 mb-4">Psikotes</div>
 
+      {psikotes.length === 0 && <div className="text-center">Tidak ada data psikotes</div>}
+
       <ListContainer>
         {psikotes.map((item, index) => (
           <ListItem

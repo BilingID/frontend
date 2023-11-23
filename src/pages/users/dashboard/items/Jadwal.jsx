@@ -1,21 +1,37 @@
 import { ListContainer, ListItem } from "components/common/dashboard/ListField";
 import { useNavigate } from "react-router-dom";
 
- const JadwalItem = () => {
+const JadwalItem = () => {
   const navigate = useNavigate();
   return (
     <div className="box px-5 py-5">
       <div className="fs-2 border-bottom pb-3 mb-4">Jadwal</div>
 
       <ListContainer>
-        <ListItem label="Tes Kepribadian MBTI" date="10/2/2023" status={0} onClick={() => navigate("HasilDiagnosa")}/>
-        <ListItem label="Tes Kepribadian MBTI" date="10/2/2023" status={1} onClick={() => navigate("MulaiKonseling")}/>
-        <ListItem label="Tes Kepribadian MBTI" date="10/2/2023" status={0} onClick={() => navigate("HasilDiagnosa")}/>
+        <ListItem
+          label="Tes Kepribadian MBTI"
+          date="10/2/2023"
+          status={0}
+          onClick={() => navigate("/konseling/result")}
+        />
+        <ListItem
+          label="Tes Kepribadian MBTI"
+          date="10/2/2023"
+          status={1}
+          onClick={() => navigate("/konseling/start")}
+        />
+        <ListItem
+          label="Tes Kepribadian MBTI"
+          date="10/2/2023"
+          status={0}
+          onClick={() => navigate("/konseling/result")}
+        />
       </ListContainer>
     </div>
   );
-  
-  {/*return (
+
+  {
+    /*return (
     <div className="box px-5 py-5">
       <div className="fs-2 border-bottom pb-3 mb-4">Jadwal</div>
 
@@ -27,10 +43,8 @@ import { useNavigate } from "react-router-dom";
         <ListItem label="Arla Sihfana" date="10/2/2023" status={1} onClick={() => navigate("Konseling")}/>
       </ListContainer>
     </div>
-  );*/}
-
-
-
+  );*/
+  }
 };
 
 export default JadwalItem;
