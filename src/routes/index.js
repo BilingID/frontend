@@ -7,6 +7,12 @@ import RegisterPage from "pages/auth/Register";
 import ForgotPasswordPage from "pages/auth/ForgotPassword";
 import PsikotesPage from "pages/psikotes/Psikotes";
 import PaymentPage from "pages/psikotes/payment/Payment";
+import KonselingPage from "pages/users/dashboard/items/Konseling";
+import DiagnosaPage from "pages/users/dashboard/items/Diagnosa";
+import HasilDiagnosa from "pages/users/dashboard/items/HasilDiagnosa";
+import HasilPsikotes from "pages/users/dashboard/items/HasilPsikotes";
+import MulaiKonseling from "pages/users/dashboard/items/MulaiKonseling";
+
 import { useUserContext } from "context/UserContext";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
 import { toast } from "react-toastify";
@@ -70,6 +76,28 @@ const Routes = () => {
       path: "*",
       element: <Navigate to="/" replace />, // debug
     },
+    {
+      path: "/users/konseling",
+      element: <KonselingPage />,
+    },
+    {
+      path: "/users/hasilPsikotes",
+      element: <HasilPsikotes/>,
+    },
+    {
+      path: "/users/hasilpsikotes/diagnosa",
+      element: <DiagnosaPage/>,
+    },
+    {
+      path: "/users/hasildiagnosa",
+      element: <HasilDiagnosa/>,
+    },
+    {
+      path: "/users/mulaikonseling",
+      element: <MulaiKonseling/>,
+    },
+
+
   ]);
 
   return routes;
