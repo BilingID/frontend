@@ -13,6 +13,9 @@ import HasilPsikotes from "pages/psikotes/HasilPsikotes";
 import MulaiKonseling from "pages/konseling/MulaiKonseling";
 import KonselingHome from "pages/konseling/KonselingHome";
 import ShowProfile from "pages/konseling/ShowProfile";
+import StatusPembayaran from "pages/admin/Pembayaran";
+import KelolaDataPsikolog from "pages/admin/KelolaDataPsikolog";
+import KelolaDataKlien from "pages/admin/KelolaDataKlien"
 
 import { useUserContext } from "context/UserContext";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
@@ -104,6 +107,19 @@ const Routes = () => {
       path: "/konseling/profile",
       element: <ShowProfile />,
     },
+    {
+      path: "/statuspembayaran",
+      element: <StatusPembayaran />,
+    },
+    {
+      path: "/keloladatapsikolog",
+      element: <KelolaDataPsikolog />,
+    },
+    {
+      path: "/keloladataklien",
+      element: <KelolaDataKlien />,
+    },
+
   ]);
 
   return routes;
