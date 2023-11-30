@@ -15,7 +15,7 @@ import KonselingHome from "pages/konseling/KonselingHome";
 import ShowProfile from "pages/konseling/ShowProfile";
 import StatusPembayaran from "pages/admin/Pembayaran";
 import KelolaDataPsikolog from "pages/admin/KelolaDataPsikolog";
-import KelolaDataKlien from "pages/admin/KelolaDataKlien"
+import KelolaDataKlien from "pages/admin/KelolaDataKlien";
 import DashboardAdmin from "pages/admin/Dashboard";
 import StatistikAdmin from "pages/admin/Statistik.jsx";
 
@@ -103,7 +103,7 @@ const Routes = () => {
     },
     {
       path: "/konseling/payment",
-      element: <PrivateRoute element={<PaymentPage label={"Konseling"} />} />,
+      element: <PrivateRoute element={<PaymentPage type={"Konseling"} />} />,
     },
     {
       path: "/konseling/profile",
@@ -129,7 +129,6 @@ const Routes = () => {
       path: "/statistikadmin",
       element: <StatistikAdmin />,
     },
-
   ]);
 
   return routes;

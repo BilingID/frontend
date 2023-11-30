@@ -6,7 +6,7 @@ const HasilDiagnosa = () => {
   const navigate = useNavigate();
 
   return (
-    <MainLayout>
+    <MainLayout shadow>
       <div className="container text-center py-5">
         <span className="d-block">Hasil Konseling :</span>
         <button className="btn btn-default text-primary my-5 bg-primary-transparent">

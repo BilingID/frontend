@@ -1,9 +1,11 @@
 import MainLayout from "components/layout/MainLayout";
 import { ReactComponent as DocumentIcon } from "assets/icon/svg/Ellipse-65.svg";
+import { useNavigate } from "react-router-dom";
 
 const ShowProfile = () => {
+  const navigate = useNavigate();
   return (
-    <MainLayout>
+    <MainLayout shadow>
       <div className="container container-fluid py-5">
         <div className="row pb-5 border-bottom">
           <div className="col-auto">
@@ -67,7 +69,12 @@ const ShowProfile = () => {
         </p>
 
         <div className="text-center">
-          <button className="btn btn-primary mt-5 mb-5">Daftar Konseling</button>
+          <button
+            className="btn btn-primary mt-5 mb-5"
+            onClick={() => navigate("/konseling/payment")}
+          >
+            Daftar Konseling
+          </button>
         </div>
       </div>
     </MainLayout>

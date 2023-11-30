@@ -30,21 +30,8 @@ export const PaymentItem = ({ title, price, last = false, payed = false }) => {
   );
 };
 
-const PaymentMethod = ({ updateProgress }) => {
+const PaymentMethod = ({ createPayment }) => {
   const [toggleTransferBank, setToogleTransferBank] = useState(false);
-  const { token } = useUserContext();
-  const navigate = useNavigate();
-
-  const handlePsikotes = async () => {
-    const { data, message, status } = await Psychotest.create(token);
-
-    if (status === "error") {
-      toast.warn(message);
-      return;
-    }
-
-    navigate(`/psikotes/${data.code}/payment`);
-  };
 
   return (
     <div className="row">
@@ -72,7 +59,7 @@ const PaymentMethod = ({ updateProgress }) => {
           )}
         </div>
         <div className="d-flex justify-content-end">
-          <button className="btn btn-primary my-4" onClick={handlePsikotes}>
+          <button className="btn btn-primary my-4" onClick={createPayment}>
             Bayar Sekarang
           </button>
         </div>

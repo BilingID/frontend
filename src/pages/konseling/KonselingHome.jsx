@@ -1,13 +1,16 @@
 import MainLayout from "components/layout/MainLayout";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as DocumentIcon } from "assets/icon/svg/Ellipse-65.svg";
-import { Card, Container, Row, Col } from "react-bootstrap";
 
 const KonselingHome = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const navigate = useNavigate();
   return (
-    <MainLayout>
+    <MainLayout shadow>
       <div className="container container-fluid text-center py-5">
         <h1 className="text-center mt-3 lh-base">
           Konseling dengan <br /> Psikolog BiLing.ID
@@ -18,7 +21,15 @@ const KonselingHome = () => {
           kami sarankan agar kamu berkonsultasi dengan Psikolog BiLing.ID, yang siap memberikan
           bantuan dan dukungan yang kamu butuhkan.
         </p>
-        <button className="btn btn-primary mb-5" onClick={() => navigate("/konseling/payment")}>
+        <button
+          className="btn btn-primary mb-5"
+          onClick={() =>
+            window.scrollTo({
+              top: 840,
+              behavior: "smooth",
+            })
+          }
+        >
           Daftar Konseling
         </button>
       </div>

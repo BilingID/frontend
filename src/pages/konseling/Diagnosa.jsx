@@ -64,7 +64,7 @@ const Diagnosa = () => {
   };
 
   return (
-    <MainLayout>
+    <MainLayout shadow>
       <div className="container container-fluid py-5 text-center">
         <p className="mb-4">Input Hasil Konseling</p>
 

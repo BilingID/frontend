@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Konseling = () => {
   return (
-    <MainLayout>
+    <MainLayout shadow>
       <div className="container container-fluid text-center py-5">
         <h1 className="my-5">
           Konseling dengan <br /> Hani Kumala, M. Psi., Psikolog

@@ -21,10 +21,10 @@ const JadwalItem = () => {
           onClick={() => navigate("/konseling/start")}
         />
         <ListItem
-          label="Tes Kepribadian MBTI"
+          label="Konseling"
           date="10/2/2023"
           status={0}
-          onClick={() => navigate("/konseling/result")}
+          onClick={() => navigate("/konseling/result/diagnosa")}
         />
       </ListContainer>
     </div>
