@@ -24,7 +24,7 @@ const RegisterPage = () => {
     fullname: "",
     email: "",
     password: "",
-    passwordConfirmation: "",
+    password_confirmation: "",
     acceptAggrement: false,
   });
 
@@ -63,32 +63,28 @@ const RegisterPage = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     toast.dismiss();
     event.target.disabled = true;
 
     if (!form.acceptAggrement) {
       toast.warn("Kamu harus menyetujui syarat dan ketentuan");
-      return;
-    }
-
-    if (form.password !== form.passwordConfirmation) {
+    } else if (form.password.length < 8 || form.password_confirmation.length < 8) {
+      toast.warn("Kata sandi minimal 8 karakter");
+    } else if (form.password !== form.password_confirmation) {
       toast.warn("Kata sandi tidak sama");
-      return;
+    } else {
+      const { status, message, data } = await AuthService.register(form);
+
+      if (status === "success") {
+        toast.success("Registrasi Berhasil");
+        setToken(data?.token);
+      } else {
+        toast.error(message);
+      }
     }
 
-    AuthService.register(form)
-      .then((res) => {
-        if (res.status === "success") {
-          toast.success("Registrasi Berhasil");
-        } else {
-          toast.error(res.message);
-        }
-        setToken(res.data?.token);
-      })
-      .finally(() => {
-        event.target.disabled = false;
-      });
+    event.target.disabled = false;
   };
 
   return (
@@ -130,7 +126,7 @@ const RegisterPage = () => {
       <FormPassword
         label="Konfirmasi Kata Sandi"
         placeholder="Harus sama dengan kata sandi"
-        name="passwordConfirmation"
+        name="password_confirmation"
         onChange={handleFormChange}
       />
 
