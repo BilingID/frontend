@@ -114,19 +114,19 @@ const Routes = () => {
       element: <StatusPembayaran />,
     },
     {
-      path: "/keloladatapsikolog",
+      path: "/admin/psikolog",
       element: <KelolaDataPsikolog />,
     },
     {
-      path: "/keloladataklien",
+      path: "/admin/klien",
       element: <KelolaDataKlien />,
     },
     {
-      path: "/dashboardadmin",
+      path: "/admin",
       element: <DashboardAdmin />,
     },
     {
-      path: "/statistikadmin",
+      path: "/admin/statistik",
       element: <StatistikAdmin />,
     },
   ]);

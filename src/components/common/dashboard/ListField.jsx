@@ -4,6 +4,50 @@ export const ListContainer = ({ children }) => {
   return <div className="d-flex flex-column gap-4">{children}</div>;
 };
 
+export const Field = ({ children }) => {
+  return (
+    <div className="border rounded-corner">
+      <div className="d-flex m-4 gap-4">{children}</div>
+    </div>
+  );
+};
+
+export const FieldIcon = ({ children, type }) => {
+  return (
+    <div
+      className={`${
+        type === 0 ? "bg-warning-transparent text-warning" : "bg-primary-transparent text-primary"
+      } p-4 rounded-corner text-primary`}
+    >
+      {children}
+    </div>
+  );
+};
+
+export const FieldInfo = ({ label, children }) => {
+  return (
+    <div className="flex-grow-1 d-flex flex-column justify-content-center gap-2">
+      <div className="fs-4 fw-bold mb-1">{label}</div>
+      {children}
+    </div>
+  );
+};
+
+export const FieldButton = ({ label, onClick, type }) => {
+  return (
+    <div className="d-flex flex-column justify-content-center align-items-center gap-2 me-4">
+      <button
+        className={
+          type === 1 ? "btn btn-primary" : "btn bg-primary-transparent text-primary btn-default"
+        }
+        onClick={onClick}
+      >
+        {label}
+      </button>
+    </div>
+  );
+};
+
 export const ListItem = ({ label, paymentDate, date, status, handleButton, ...props }) => {
   return (
     <div className="border rounded-corner" {...props}>
