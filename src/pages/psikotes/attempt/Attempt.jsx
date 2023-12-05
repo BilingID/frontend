@@ -6,6 +6,7 @@ import Psychotest from "services/api/psikotes";
 import { toast } from "react-toastify";
 import { useUserContext } from "context/UserContext";
 import useSessionStorage from "hooks/useSessionStorage";
+import FinishAttempt from "./FinishAttempt";
 
 const Question = ({ question }) => {
   return <h4 className="fw-normal py-5">{question}</h4>;
@@ -33,6 +34,7 @@ const AttemptPsikotesIndex = () => {
 
   const [questions, setQuestions] = useSessionStorage(`questions-${code}`, []);
   const [answers, setAnswers] = useSessionStorage(`answers-${code}`, []);
+  const [isFinished, setIsFinished] = useSessionStorage(`isFinished-${code}`, false);
 
   const { token } = useUserContext();
 
@@ -51,17 +53,22 @@ const AttemptPsikotesIndex = () => {
     if (!questions.length) fetchQuestion();
   }, []);
 
-  const handleSubmit = () => {};
+  const handleSubmit = () => {
+    setIsFinished(true);
+  };
 
   return (
     <MainLayout>
-      <AttemptPsikotes
-        questions={questions}
-        answers={answers}
-        setAnswers={setAnswers}
-        handleSubmit={handleSubmit}
-      />
-      {/* <FinishAttempt /> */}
+      {isFinished ? (
+        <FinishAttempt />
+      ) : (
+        <AttemptPsikotes
+          questions={questions}
+          answers={answers}
+          setAnswers={setAnswers}
+          handleSubmit={handleSubmit}
+        />
+      )}
     </MainLayout>
   );
 };
