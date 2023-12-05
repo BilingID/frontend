@@ -5,7 +5,7 @@ const useSessionStorage = (key, defaultValue) => {
     let currentValue;
 
     try {
-      currentValue = JSON.parse(sessionStorage.getItem(key) || String(defaultValue));
+      currentValue = JSON.parse(localStorage.getItem(key) || String(defaultValue));
     } catch (error) {
       currentValue = defaultValue;
     }
@@ -14,7 +14,7 @@ const useSessionStorage = (key, defaultValue) => {
   });
 
   useEffect(() => {
-    sessionStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value));
   }, [value, key]);
 
   return [value, setValue];

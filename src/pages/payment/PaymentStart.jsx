@@ -3,7 +3,8 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import QRCode from "react-qr-code";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import Psychotest from "services/api/psikotes";
 
 const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
@@ -27,10 +28,22 @@ const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
 
 const PaymentStart = ({ payment }) => {
   const { code } = useParams();
+  const navigate = useNavigate();
+
+  if (payment?.status !== "paid") {
+    toast.warn("Pembayaran sudah dilakukan");
+    navigate("/users/psikotes");
+  }
+
+  if (payment?.status !== "expired") {
+    toast.warn("Pembayaran sudah kadaluarsa, silahkan lakukan pembayaran ulang");
+    navigate("/psikotes");
+  }
+
   const [expiredAt, setExpiredAt] = useState(null);
 
   useEffect(() => {
-    setExpiredAt(new Date(payment?.expired_at?.slice(0, -1)).getTime());
+    setExpiredAt(new Date().getTime() + 1000 * 60 * 15 - payment?.countdown * 1000);
   }, [payment]);
 
   return (

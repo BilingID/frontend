@@ -47,7 +47,7 @@ const Routes = () => {
     },
     {
       path: "/psikotes/payment",
-      element: <PrivateRoute element={<PaymentPage label={"Psikotes"} />} />,
+      element: <PrivateRoute element={<PaymentPage type={"Psikotes"} />} />,
     },
     {
       path: "/psikotes/attempt",
@@ -59,7 +59,7 @@ const Routes = () => {
     },
     {
       path: "/psikotes/:code/payment",
-      element: <PrivateRoute element={<PaymentPage step={1} label={"Psikotes"} />} />,
+      element: <PrivateRoute element={<PaymentPage step={1} type={"Psikotes"} />} />,
     },
     {
       path: "/",

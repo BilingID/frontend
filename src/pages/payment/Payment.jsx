@@ -35,7 +35,7 @@ const Payment = ({ step, type }) => {
   const [payment, setPayment] = useState({});
 
   const getPayment = async () => {
-    if (type !== "psikotes") {
+    if (type !== "Psikotes") {
       // todo: get payment for other type
       return;
     }
@@ -52,7 +52,7 @@ const Payment = ({ step, type }) => {
   };
 
   const createPayment = async () => {
-    if (type !== "psikotes") {
+    if (type !== "Psikotes") {
       // todo: get payment for other type
       setProgress(2);
       return;
