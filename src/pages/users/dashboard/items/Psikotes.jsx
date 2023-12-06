@@ -11,9 +11,9 @@ const PsikotesItem = () => {
   const navigate = useNavigate();
 
   const fetchPsikotes = async () => {
-    if (psikotes.length > 0) {
-      return;
-    }
+    // if (psikotes.length > 0) {
+    //   return;
+    // }
 
     const { data } = await Psychotest.fetch(token);
     if (data) {
@@ -25,8 +25,12 @@ const PsikotesItem = () => {
     fetchPsikotes();
   }, []);
 
-  const handleButton = (code) => {
+  const attemptPsikotes = (code) => {
     navigate(`/psikotes/${code}/attempt`);
+  };
+
+  const showResult = (code) => {
+    navigate(`/psikotes/${code}/result`);
   };
 
   return (
@@ -41,8 +45,11 @@ const PsikotesItem = () => {
             key={index}
             label="Psikotes"
             paymentDate={item.updated_at}
-            status={item.status === "finish" ? 0 : 1}
-            handleButton={() => handleButton(item.code)}
+            // status={item.status === "finish" ? 0 : 1}
+            status={item.attempt_date ? 0 : 1}
+            handleButton={
+              item.attempt_date ? () => showResult(item.code) : () => attemptPsikotes(item.code)
+            }
           />
         ))}
       </ListContainer>

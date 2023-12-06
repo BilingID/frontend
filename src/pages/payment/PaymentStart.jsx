@@ -29,18 +29,17 @@ const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
 const PaymentStart = ({ payment }) => {
   const { code } = useParams();
   const navigate = useNavigate();
-
-  if (payment?.status !== "paid") {
-    toast.warn("Pembayaran sudah dilakukan");
-    navigate("/users/psikotes");
-  }
-
-  if (payment?.status !== "expired") {
-    toast.warn("Pembayaran sudah kadaluarsa, silahkan lakukan pembayaran ulang");
-    navigate("/psikotes");
-  }
-
   const [expiredAt, setExpiredAt] = useState(null);
+
+  useEffect(() => {
+    if (payment?.status === "paid") {
+      toast.warn("Pembayaran sudah dilakukan");
+      navigate("/users/psikotes");
+    } else if (payment?.status === "expired") {
+      toast.warn("Pembayaran sudah kadaluarsa, silahkan lakukan pembayaran ulang");
+      navigate("/psikotes");
+    }
+  }, []);
 
   useEffect(() => {
     setExpiredAt(new Date().getTime() + 1000 * 60 * 15 - payment?.countdown * 1000);

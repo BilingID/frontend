@@ -13,7 +13,7 @@ const AnswersOption = ({ choices, selected, handleButton }) => {
         <button
           key={choice.id}
           className={`btn btn-default shadow-btn fw-normal ${
-            selected == choice.id && "border-primary"
+            selected?.choice_id == choice.id && "border-primary"
           }`}
           value={choice.id}
           style={{ width: "100%", textAlign: "left" }}
@@ -31,10 +31,17 @@ const AttemptPsikotes = ({ questions, answers, setAnswers, handleSubmit }) => {
 
   const handleButton = (event) => {
     setAnswers((prev) => {
-      prev[currentQuestion] = event.target.value;
+      prev[currentQuestion] = {
+        question_bank_id: questions[currentQuestion].id,
+        choice_id: parseInt(event.target.value),
+      };
       return [...prev];
     });
   };
+
+  useEffect(() => {
+    console.log(answers);
+  }, [answers]);
 
   return (
     <>

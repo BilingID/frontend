@@ -53,8 +53,18 @@ const AttemptPsikotesIndex = () => {
     if (!questions.length) fetchQuestion();
   }, []);
 
-  const handleSubmit = () => {
-    setIsFinished(true);
+  const handleSubmit = async (event) => {
+    event.target.disabled = true;
+    const { data, message, status } = await Psychotest.submitAnswers(token, code, answers);
+
+    if (status !== "success") {
+      toast.warn(message);
+    } else {
+      toast.success("Jawaban anda berhasil disimpan");
+      setIsFinished(true);
+    }
+
+    event.target.disabled = false;
   };
 
   return (
