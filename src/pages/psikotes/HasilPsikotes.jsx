@@ -25,7 +25,7 @@ const HasilPsikotes = () => {
     };
 
     getResult();
-  });
+  }, []);
 
   return (
     <MainLayout>
