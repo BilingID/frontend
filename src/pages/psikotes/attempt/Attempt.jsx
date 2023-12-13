@@ -55,7 +55,19 @@ const AttemptPsikotesIndex = () => {
 
   const handleSubmit = async (event) => {
     event.target.disabled = true;
-    const { data, message, status } = await Psychotest.submitAnswers(token, code, answers);
+
+    const psychotestKeys = ["P", "I", "J", "T", "E", "N", "S", "F"];
+    const psychotestData = {};
+
+    psychotestKeys.forEach((key) => {
+      psychotestData[key] = 0;
+    });
+
+    answers.forEach((answer) => {
+      psychotestData[answer]++;
+    });
+
+    const { data, message, status } = await Psychotest.submitAnswers(token, code, psychotestData);
 
     if (status !== "success") {
       toast.warn(message);

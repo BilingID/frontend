@@ -56,7 +56,7 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     toast.dismiss();
 
     // TODO: add validation
@@ -64,18 +64,16 @@ const LoginPage = () => {
 
     event.target.disabled = true;
 
-    AuthService.login(form)
-      .then((res) => {
-        if (res.status === "success") {
-          toast.success("Login Berhasil");
-        } else {
-          toast.warn(res.message);
-        }
-        setToken(res.data?.token);
-      })
-      .finally(() => {
-        event.target.disabled = false;
-      });
+    const { data, message, status } = await AuthService.login(form);
+
+    if (status === "success") {
+      toast.success("Login Berhasil");
+    } else {
+      toast.warn(message);
+    }
+
+    setToken(data?.token);
+    event.target.disabled = false;
   };
 
   return (

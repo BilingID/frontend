@@ -1,18 +1,40 @@
 import MainLayout from "components/layout/MainLayout";
-import { useNavigate } from "react-router-dom";
+import { useUserContext } from "context/UserContext";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import Psychotest from "services/api/psikotes";
 
 const HasilPsikotes = () => {
   const navigate = useNavigate();
+  const { token } = useUserContext();
+  const { code } = useParams();
+
+  const [result, setResult] = useState({});
+
+  useEffect(() => {
+    const getResult = async () => {
+      const { data, message, status } = await Psychotest.getResult(token, code);
+
+      if (status === "error") {
+        toast.warn(message);
+        return;
+      }
+
+      setResult(data);
+    };
+
+    getResult();
+  });
 
   return (
     <MainLayout>
       <div className="container container-fluid text-center py-5">
         <span className="d-block">your personality type is :</span>
-        <h1 className="my-5"> INTROVERT </h1>
+        <h1 className="my-5"> {result?.personality} </h1>
 
         <p className="mx-auto lh-lg" style={{ maxWidth: 800 }}>
-          Orang introvert lebih suka menyendiri untuk mengumpulkan energinya. Namun, mereka
-          sebenarnya tidak ada masalah bila harus berada dalam situasi sosial.
+          {result?.description}
         </p>
         <div className="d-flex justify-content-between">
           <button

@@ -46,15 +46,15 @@ class Psychotest {
 
   submitAnswers = (accessToken, code, answers) =>
     this.api
-      .post(
-        `/psikotes/${code}/answer`,
-        {
-          answers: answers,
-        },
-        {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        }
-      )
+      .post(`/psikotes/${code}/answer`, answers, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => res.data)
+      .catch(this.handleError);
+
+  getResult = (accessToken, code) =>
+    this.api
+      .get(`/psikotes/${code}/result`, { headers: { Authorization: `Bearer ${accessToken}` } })
       .then((res) => res.data)
       .catch(this.handleError);
 }

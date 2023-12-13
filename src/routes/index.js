@@ -58,6 +58,10 @@ const Routes = () => {
       element: <PrivateRoute element={<AttemptPsikotesIndex />} />,
     },
     {
+      path: "/psikotes/:code/result",
+      element: <PrivateRoute element={<HasilPsikotes />} />,
+    },
+    {
       path: "/psikotes/:code/payment",
       element: <PrivateRoute element={<PaymentPage step={1} type={"Psikotes"} />} />,
     },

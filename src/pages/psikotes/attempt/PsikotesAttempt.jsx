@@ -6,22 +6,18 @@ const Question = ({ question }) => {
   return <h4 className="fw-normal py-5">{question}</h4>;
 };
 
-const AnswersOption = ({ choices, selected, handleButton }) => {
+const AnswersOption = ({ choice, value, selected, handleButton }) => {
   return (
     <div className="d-flex flex-column gap-4 mt-3 mb-5">
-      {choices?.map((choice) => (
-        <button
-          key={choice.id}
-          className={`btn btn-default shadow-btn fw-normal ${
-            selected?.choice_id == choice.id && "border-primary"
-          }`}
-          value={choice.id}
-          style={{ width: "100%", textAlign: "left" }}
-          onClick={handleButton}
-        >
-          {choice.text}
-        </button>
-      ))}
+      <button
+        key={value}
+        className={`btn btn-default shadow-btn fw-normal ${selected && "border-primary"}`}
+        value={value}
+        style={{ width: "100%", textAlign: "left" }}
+        onClick={handleButton}
+      >
+        {choice}
+      </button>
     </div>
   );
 };
@@ -31,10 +27,7 @@ const AttemptPsikotes = ({ questions, answers, setAnswers, handleSubmit }) => {
 
   const handleButton = (event) => {
     setAnswers((prev) => {
-      prev[currentQuestion] = {
-        question_bank_id: questions[currentQuestion].id,
-        choice_id: parseInt(event.target.value),
-      };
+      prev[currentQuestion] = event.target.value;
       return [...prev];
     });
   };
@@ -60,8 +53,15 @@ const AttemptPsikotes = ({ questions, answers, setAnswers, handleSubmit }) => {
       <div className="container my-5">
         <Question question={questions[currentQuestion]?.question_text} />
         <AnswersOption
-          choices={questions[currentQuestion]?.choices}
-          selected={answers[currentQuestion]}
+          choice={questions[currentQuestion]?.choice_a}
+          value={questions[currentQuestion]?.type_a}
+          selected={answers[currentQuestion] === questions[currentQuestion]?.type_a}
+          handleButton={handleButton}
+        />
+        <AnswersOption
+          choice={questions[currentQuestion]?.choice_b}
+          value={questions[currentQuestion]?.type_b}
+          selected={answers[currentQuestion] === questions[currentQuestion]?.type_b}
           handleButton={handleButton}
         />
         <div
