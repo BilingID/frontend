@@ -8,6 +8,7 @@ import Section3Right from "assets/img/section-3-right.png";
 import { ReactComponent as ArrowDown } from "assets/icon/svg/arrow-down.svg";
 import { ReactComponent as ArrowRight } from "assets/icon/svg/arrow-right.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const DotNumber = ({ number }) => (
   <div
@@ -113,6 +114,8 @@ const Landing = () => {
     });
   };
 
+  const navigate = useNavigate();
+
   return (
     <MainLayout>
       <section
@@ -129,7 +132,9 @@ const Landing = () => {
               Dengan bimbingan konseling online, kamu mendapatkan bantuan, menjadi lebih baik, dan
               kamu pantas untuk bahagia.
             </span>
-            <button className="btn btn-primary">Mulai Psikotes</button>
+            <button className="btn btn-primary" onClick={() => navigate("/psikotes")}>
+              Mulai Psikotes
+            </button>
           </div>
           <div lg={3} className="col mt-5">
             <img src={LandingImg} alt="Landing" width={342} height={540} />
@@ -216,7 +221,7 @@ const Landing = () => {
 
         <div className="container text-start rounded-corner shadow-btn py-2 mt-5">
           {faqData.map((item, index) => (
-            <div className="px-3 pe-auto" onClick={() => handleFaqClick(index)}>
+            <div className="px-3 pe-auto" onClick={() => handleFaqClick(index)} key={index}>
               <div className="py-3 d-flex justify-content-between align-items-center">
                 <h4 className="fw-normal">{item.question}</h4>
                 {!showFaq[index] ? (
