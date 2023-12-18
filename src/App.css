@@ -13,6 +13,17 @@ body {
   border-radius: 40px;
 }
 
+.btn-default-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 40px;
+  padding: 0 40px;
+}
+
 .btn-default,
 .btn-light,
 .btn-primary,
@@ -41,8 +52,21 @@ body {
   box-shadow: 0px 4px 14px 0px rgba(0, 0, 0, 0.15);
 }
 
+.bg-transparent {
+  background: #f6f6f6 !important;
+  /* background: #eeeeee !important; */
+}
+
 .bg-primary-transparent {
   background: #eef5ff;
+}
+
+.bg-danger-transparent {
+  background: #ffefef;
+}
+
+.bg-success-transparent {
+  background: #e7ffe5;
 }
 
 .bg-warning-transparent {

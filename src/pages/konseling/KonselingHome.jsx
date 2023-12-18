@@ -1,11 +1,34 @@
 import MainLayout from "components/layout/MainLayout";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as DocumentIcon } from "assets/icon/svg/Ellipse-65.svg";
+import Psychologist from "services/api/psikolog";
+import { useUserContext } from "context/UserContext";
+import { toast } from "react-toastify";
 
 const KonselingHome = () => {
+  const [psychologists, setPsychologists] = useState([]);
+  const { token } = useUserContext();
+
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    const fetchPsychologists = async () => {
+      const { data, message, status } = await Psychologist.getAll(token);
+
+      if (status !== "success") {
+        toast.warning(message);
+        return;
+      }
+
+      // splice the array
+      const slicedData = [];
+      while (data.length) slicedData.push(data.splice(0, 4));
+
+      setPsychologists(slicedData);
+    };
+
+    fetchPsychologists();
   }, []);
 
   const navigate = useNavigate();
@@ -34,56 +57,38 @@ const KonselingHome = () => {
         </button>
       </div>
       <div className="container container-fluid text-center py-5">
-        <div className="row my-4">
-          {[...Array(4)].map((item, index) => {
-            return (
-              <div className="col">
-                <div
-                  className="card rounded-corner py-5 pe-auto"
-                  onClick={() => navigate("profile")}
-                >
-                  <div className="card-body text-center">
-                    <DocumentIcon />
+        {psychologists?.map((chunks, index) => {
+          return (
+            <div className="row my-4">
+              {chunks.map((psychologist, index) => {
+                return (
+                  <div className="col">
                     <div
-                      className="badge d-block rounded-corner bg-warning mx-auto py-3 px-5 my-4 fs-6 text-white"
-                      style={{ width: "fit-content" }}
+                      className="card rounded-corner py-5 pe-auto h-100"
+                      onClick={() => navigate(`profile/${psychologist.id}`)}
                     >
-                      2001+ Sesi
+                      <div className="card-body text-center">
+                        <img
+                          src={psychologist?.profile_photo || "https://via.placeholder.com/130"}
+                          className="rounded-circle"
+                        />
+                        <div
+                          className="badge d-block rounded-corner bg-warning mx-auto py-3 px-5 my-4 fs-6 text-white"
+                          style={{ width: "fit-content" }}
+                        >
+                          2001+ Sesi
+                        </div>
+                        <h4 style={{ maxWidth: 200 }} className="mx-auto">
+                          {psychologist.fullname}
+                        </h4>
+                      </div>
                     </div>
-                    <h4 style={{ maxWidth: 200 }} className="mx-auto">
-                      Hani Kumala, M. Psi., Psikolog
-                    </h4>
                   </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="row">
-          {[...Array(4)].map((item, index) => {
-            return (
-              <div className="col">
-                <div
-                  className="card rounded-corner py-5 pe-auto"
-                  onClick={() => navigate("profile")}
-                >
-                  <div className="card-body text-center">
-                    <DocumentIcon />
-                    <div
-                      className="badge d-block rounded-corner bg-warning mx-auto py-3 px-5 my-4 fs-6 text-white"
-                      style={{ width: "fit-content" }}
-                    >
-                      2001+ Sesi
-                    </div>
-                    <h4 style={{ maxWidth: 200 }} className="mx-auto">
-                      Hani Kumala, M. Psi., Psikolog
-                    </h4>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
     </MainLayout>
   );

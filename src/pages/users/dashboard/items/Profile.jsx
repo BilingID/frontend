@@ -6,6 +6,8 @@ import CameraIcon from "assets/icon/svg/camera.svg";
 import { FormInput, FormRadios } from "components/common/Form";
 import { toast } from "react-toastify";
 import AuthService from "services/api/auth";
+import Psychologist from "services/api/psikolog";
+import { ReactComponent as ArrowDown } from "assets/icon/svg/arrow-down.svg";
 
 const ProfilField = ({ label, value }) => {
   return (
@@ -150,6 +152,64 @@ const EditableProfilView = ({ form, handleFormChange, handleFormSubmit, hideForm
   );
 };
 
+const AdditionalProfil = () => {
+  const { user, token } = useUserContext();
+
+  const [form, setForm] = useState({
+    bio_desc: user?.bio_desc || "",
+    skill_desc: user?.skill_desc || "",
+  });
+
+  const handleFormChange = (event) => {
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleClick = async () => {
+    const { data, message, status } = await Psychologist.updateDescription(token, form);
+    console.log(data);
+    toast.success("Fitur ini belum tersedia");
+  };
+  return (
+    <>
+      <div className="mb-3 px-4 pt-4">
+        <label className="form-label h5">Deskripsi diri</label>
+        <textarea
+          className="form-control py-4"
+          name="bio_desc"
+          style={{
+            height: "120px",
+          }}
+          placeholder="Deskripsikan diri anda sendiri beserta biodata singkat anda"
+          value={form?.bio_desc}
+          onChange={handleFormChange}
+        ></textarea>
+      </div>
+      <div className="mb-3 px-4">
+        <label className="form-label h5">Keahlian anda</label>
+        <textarea
+          className="form-control py-4"
+          name="skill_desc"
+          style={{
+            height: "120px",
+          }}
+          placeholder="Deskripsikan keahlian anda"
+          value={form?.skill_desc}
+          onChange={handleFormChange}
+        ></textarea>
+      </div>
+
+      <div className="d-flex justify-content-end">
+        <button className="btn btn-primary" onClick={handleClick}>
+          Simpan
+        </button>
+      </div>
+    </>
+  );
+};
+
 const ProfilItem = () => {
   const navigate = useNavigate();
 
@@ -243,6 +303,12 @@ const ProfilItem = () => {
     });
   };
 
+  const [toggleAdditional, setToggleAdditional] = useState(false);
+
+  const handleToggleAdditional = () => {
+    setToggleAdditional(!toggleAdditional);
+  };
+
   return (
     <Fragment>
       <input
@@ -276,7 +342,6 @@ const ProfilItem = () => {
             />
           )}
         </div>
-
         <div className="fs-6">
           {!user?.email_verified_at && (
             <>
@@ -287,7 +352,6 @@ const ProfilItem = () => {
             </>
           )}
         </div>
-
         {isEditable ? (
           <EditableProfilView
             form={form}
@@ -298,6 +362,35 @@ const ProfilItem = () => {
         ) : (
           <ProfilView user={user} handleClick={() => setEditable(true)} />
         )}
+        <div className="fs-2 border-bottom pb-3 mt-5">Profil Lanjutan</div>
+        <div>
+          <div
+            className="d-flex justify-content-between align-items-center btn-default bg-transparent pe-auto"
+            onClick={handleToggleAdditional}
+          >
+            <h5 className="m-0">Data diri</h5>
+            <div className="d-flex align-items-center gap-4">
+              {user?.bio_desc && user?.skill_desc ? (
+                <div className="badge text-success bg-success-transparent btn-default-2 bg-">
+                  Sudah terisi
+                </div>
+              ) : (
+                <div className="badge text-danger bg-danger-transparent btn-default-2 bg-">
+                  Belum terisi
+                </div>
+              )}
+
+              <ArrowDown
+                width={24}
+                height={24}
+                style={{
+                  transform: toggleAdditional ? "rotate(180deg)" : "rotate(0deg)",
+                }}
+              />
+            </div>
+          </div>
+          {toggleAdditional && <AdditionalProfil />}
+        </div>
       </div>
     </Fragment>
   );

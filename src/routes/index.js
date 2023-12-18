@@ -110,7 +110,7 @@ const Routes = () => {
       element: <PrivateRoute element={<PaymentPage type={"Konseling"} />} />,
     },
     {
-      path: "/konseling/profile",
+      path: "/konseling/profile/:id",
       element: <ShowProfile />,
     },
     {
