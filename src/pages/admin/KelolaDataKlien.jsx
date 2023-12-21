@@ -17,11 +17,6 @@ import { ReactComponent as CalendarIcon } from "assets/icon/svg/calendar.svg";
 import { ReactComponent as SearchIcon } from "assets/icon/svg/SearchIcon.svg";
 
 
-
-
-
-
-
 const Pembayaran = () => {
 
 
