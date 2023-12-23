@@ -18,7 +18,6 @@ import KelolaDataPsikolog from "pages/admin/KelolaDataPsikolog";
 import KelolaDataKlien from "pages/admin/KelolaDataKlien";
 import DashboardAdmin from "pages/admin/Dashboard";
 import StatistikAdmin from "pages/admin/Statistik.jsx";
-import SidebarAdmin from "pages/admin/SidebarAdmin";
 
 import { useUserContext } from "context/UserContext";
 import AttemptPsikotesIndex from "pages/psikotes/attempt/Attempt";
@@ -127,17 +126,14 @@ const Routes = () => {
       element: <KelolaDataKlien />,
     },
     {
-      path: "/admin",
+      path: "/admin/dashboard",
       element: <DashboardAdmin />,
     },
     {
       path: "/admin/statistik",
       element: <StatistikAdmin />,
     },
-    {
-      path: "/admin/sidebar",
-      element: <SidebarAdmin />,
-    },
+
 
 
   ]);

@@ -157,7 +157,7 @@ const Pembayaran = () => {
             <Col md={8}>
               <div className='mt-3 ms-5'>
                 <h4>
-                  Data Psikolog
+                  Data Klien
                 </h4>
               </div>              
               <Container>

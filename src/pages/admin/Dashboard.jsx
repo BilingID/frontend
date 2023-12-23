@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { ReactComponent as ArrowIcon } from "assets/icon/svg/arrow-right.svg"
 import { Bar } from "react-chartjs-2"
 import { Chart, CategoryScale, LinearScale, PointElement, Title, Tooltip, Legend, Filler, BarElement } from "chart.js"
+
 import SidebarLayout from "./SidebarAdmin"
 Chart.register(
   BarElement,

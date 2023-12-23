@@ -11,8 +11,10 @@ import { ReactComponent as RingIcon } from "assets/icon/svg/notification.svg";
 import { ReactComponent as CalendarIcon } from "assets/icon/svg/calendar.svg";
 import { ReactComponent as SearchIcon } from "assets/icon/svg/SearchIcon.svg";
 import { ReactComponent as QRIcon } from "assets/icon/svg/QRCodeIcon.svg";
+import { useNavigate } from "react-router-dom";
 
 const Pembayaran = () => {
+  const navigate = useNavigate();
   const initialData = [
     {
       code: "#111111111",
@@ -85,7 +87,7 @@ const Pembayaran = () => {
 
 
             <div className="mt-5">
-              <button className="btn-primary2">
+              <button className="btn-primary2" onClick={() => navigate("/admin/dashboard")}>
                 <DashboardIcon /> Dashboard
               </button>
             </div>
@@ -104,13 +106,13 @@ const Pembayaran = () => {
             </div>
 
             <div className="mt-2">
-              <button className="btn-primary2">
+              <button className="btn-primary2" onClick={() => navigate("/admin/psikolog")}>
                  <PsikologIcon /> Psikolog
               </button>
             </div>
 
             <div className="mt-2">
-              <button className="btn-primary2">
+              <button className="btn-primary2" onClick={() => navigate("/admin/klien")}>
                  <CustomerIcon/> Customer
               </button>
             </div>
@@ -123,7 +125,7 @@ const Pembayaran = () => {
             
           </Col>
           <Col md={7}>
-            <div className="mt-2 ms-5">
+            <div className="mt-3 ms-5">
               <h4>Pembayaran</h4>
             </div>
             <Container>
