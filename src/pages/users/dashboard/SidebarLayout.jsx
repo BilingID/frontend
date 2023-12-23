@@ -49,11 +49,11 @@ const SidebarLayout = () => {
     const { data, status, message } = await Auth.logout(token);
 
     if (status !== "success") {
-      toast.warn(message);
+      toast.warn("Gagal keluar dari akun");
       return;
     }
 
-    toast.success(message);
+    toast.success("Berhasil keluar dari akun");
 
     setUser(null);
     setToken(null);

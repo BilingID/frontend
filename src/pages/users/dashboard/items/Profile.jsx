@@ -169,8 +169,13 @@ const AdditionalProfil = () => {
 
   const handleClick = async () => {
     const { data, message, status } = await Psychologist.updateDescription(token, form);
-    console.log(data);
-    toast.success("Fitur ini belum tersedia");
+
+    if (status !== "success") {
+      toast.warn("Gagal mengubah data");
+      return;
+    }
+
+    toast.success("Berhasil mengubah data");
   };
   return (
     <>
