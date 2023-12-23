@@ -17,7 +17,7 @@ const KonselingHome = () => {
       const { data, message, status } = await Psychologist.getAll(token);
 
       if (status !== "success") {
-        toast.warning(message);
+        toast.warn("Gagal mengambil data psikolog");
         return;
       }
 

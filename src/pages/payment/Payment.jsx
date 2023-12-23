@@ -60,7 +60,7 @@ const Payment = ({ step, type }) => {
     const { data, message, status } = await Psychotest.create(token);
 
     if (status === "error") {
-      toast.warn(message);
+      toast.warn("Gagal membuat transaksi pembayaran");
       return;
     }
 

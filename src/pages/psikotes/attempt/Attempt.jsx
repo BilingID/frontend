@@ -43,7 +43,7 @@ const AttemptPsikotesIndex = () => {
       const { data, message, status } = await Psychotest.getQuestions(token, code);
 
       if (status === "error") {
-        toast.warn(message);
+        toast.warn("Gagal mengambil data psikotes");
         return;
       }
 
@@ -70,7 +70,7 @@ const AttemptPsikotesIndex = () => {
     const { data, message, status } = await Psychotest.submitAnswers(token, code, psychotestData);
 
     if (status !== "success") {
-      toast.warn(message);
+      toast.warn("Gagal menyimpan jawaban anda");
     } else {
       toast.success("Jawaban anda berhasil disimpan");
       setIsFinished(true);

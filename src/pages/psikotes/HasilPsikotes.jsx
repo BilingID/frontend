@@ -17,7 +17,7 @@ const HasilPsikotes = () => {
       const { data, message, status } = await Psychotest.getResult(token, code);
 
       if (status === "error") {
-        toast.warn(message);
+        toast.warn("Gagal mengambil data psikotes");
         return;
       }
 

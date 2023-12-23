@@ -37,7 +37,7 @@ const LoginPage = () => {
         if (res.status === "success") {
           toast.success("Login Berhasil");
           setToken(res.data?.token);
-        } else toast.warn(res.message);
+        } else toast.warn("Login Gagal");
       });
     }
   }, [googleUser]);
@@ -69,7 +69,7 @@ const LoginPage = () => {
     if (status === "success") {
       toast.success("Login Berhasil");
     } else {
-      toast.warn(message);
+      toast.warn("Login Gagal");
     }
 
     setToken(data?.token);
