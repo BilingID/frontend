@@ -1,15 +1,10 @@
 import { Container, Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import { ReactComponent as DashboardIcon } from "assets/icon/svg/DashboardIcon.svg";
-import { ReactComponent as DashboardClickIcon } from "assets/icon/svg/DashboardOnClickIcon.svg";
-import { ReactComponent as StatisticIcon } from "assets/icon/svg/StatistikIcon.svg";
-import { ReactComponent as StatisticClickIcon } from "assets/icon/svg/StatisticOnClickIcon.svg";
-import { ReactComponent as PembayaranIcon } from "assets/icon/svg/PembayaranIcon.svg";
+import { ReactComponent as StatisticIcon } from "assets/icon/svg/chart-2.svg";
 import { ReactComponent as PembayaranClickIcon } from "assets/icon/svg/PembayaranOnClickIcon.svg";
 import { ReactComponent as PsikologIcon } from "assets/icon/svg/PsikologIcon.svg";
-import { ReactComponent as PsikologClickIcon } from "assets/icon/svg/PsikologOnClickIcon.svg";
 import { ReactComponent as CustomerIcon } from "assets/icon/svg/CustomerIcon.svg";
-import { ReactComponent as CustomerClickIcon } from "assets/icon/svg/CustomerOnClickIcon.svg";
 import { ReactComponent as ArrowIcon } from "assets/icon/svg/ArrowIcon.svg";
 import { ReactComponent as LogOutIcon } from "assets/icon/svg/LogOutIcon.svg";
 import { ReactComponent as RingIcon } from "assets/icon/svg/notification.svg";
@@ -68,7 +63,6 @@ const Pembayaran = () => {
 
   const handleVerifikasiClick = () => {
     if (selectedItem) {
-      // Assuming you have a unique identifier for each item, like 'code'
       const updatedStatus = selectedItem.status === "Pending" ? "Berhasil" : "Pending";
       const updatedData = data.map((item) =>
         item.code === selectedItem.code ? { ...item, status: updatedStatus } : item
@@ -79,192 +73,54 @@ const Pembayaran = () => {
 
   const handleRowClick = (item) => {
     setSelectedItem((prevSelectedItem) => {
-      // Toggle visibility when clicking on the same row
       return prevSelectedItem && prevSelectedItem.code === item.code ? null : item;
     });
   };
 
-  const roundBackgroundStylePending = {
-    backgroundColor: "#FEF8E8", // Replace with the desired background color
-    color: "#F5C556",
-    borderRadius: "30px", // Adjust the border-radius as needed
-    padding: "5px", // Add padding for better appearance
-    display: "inline-block", // Ensure the background color wraps around the text
-    width: "100px",
-  };
-
-  const roundBackgroundStyleBerhasil = {
-    backgroundColor: "#EEF5FF", // Replace with the desired background color
-    color: "#2E7DF1",
-    borderRadius: "30px", // Adjust the border-radius as needed
-    padding: "5px", // Add padding for better appearance
-    display: "inline-block", // Ensure the background color wraps around the text
-    width: "100px",
-  };
-
-  const [activeButton, setActiveButton] = useState(null);
-
-  const handleButtonClick = (button) => {
-    setActiveButton(button);
-  };
-  const getIconComponentDashboard = () => {
-    return activeButton === "dashboard" ? (
-      <DashboardClickIcon className="me-2" />
-    ) : (
-      <DashboardIcon className="me-2" />
-    );
-  };
-  const getIconComponentStatistik = () => {
-    return activeButton === "statistik" ? (
-      <StatisticClickIcon className="me-2" />
-    ) : (
-      <StatisticIcon className="me-2" />
-    );
-  };
-  const getIconComponentPembayaran = () => {
-    return activeButton === "pembayaran" ? (
-      <PembayaranClickIcon className="me-2" />
-    ) : (
-      <PembayaranIcon className="me-2" />
-    );
-  };
-  const getIconComponentPsikolog = () => {
-    return activeButton === "psikolog" ? (
-      <PsikologClickIcon className="me-2" />
-    ) : (
-      <PsikologIcon className="me-2" />
-    );
-  };
-  const getIconComponentCostumer = () => {
-    return activeButton === "customer" ? (
-      <CustomerClickIcon className="me-2" />
-    ) : (
-      <CustomerIcon className="me-2" />
-    );
-  };
-
   return (
-    <div className="container-fluid" style={{ backgroundColor: "#ffffff" }}>
-      <Container fluid>
+    <div className="min-vh-100 bg-white" >
         <Row className="pt-3 ms-3 me-3">
           <Col md={2}>
             <h2 className="text-primary">BiLing.ID</h2>
-            <div>
-              <button
-                className={`rounded-corner pt-3 mt-3 ${
-                  activeButton === "dashboard" ? "bg-primary text-white" : "bg-transparent"
-                }`}
-                style={{ border: "1px solid white", width: "200px" }}
-              >
-                <p
-                  style={{
-                    color: activeButton === "dashboard" ? "white" : "#979797",
-                    fontWeight: activeButton === "dashboard" ? "bold" : "normal",
-                    textAlign: "left",
-                    paddingLeft: "25px",
-                  }}
-                  onClick={() => handleButtonClick("dashboard")}
-                >
-                  {getIconComponentDashboard()} Dashboard
-                </p>
+
+
+            <div className="mt-5">
+              <button className="btn-primary2">
+                <DashboardIcon /> Dashboard
               </button>
             </div>
+
+            
             <div className="mt-2">
-              <button
-                className={`rounded-corner pt-3 ${
-                  activeButton === "statistik" ? "bg-primary text-white" : "bg-transparent"
-                }`}
-                style={{ border: "1px solid white", width: "200px" }}
-              >
-                <p
-                  style={{
-                    color: activeButton === "statistik" ? "white" : "#979797",
-                    fontWeight: activeButton === "statistik" ? "bold" : "normal",
-                    textAlign: "left",
-                    paddingLeft: "25px",
-                  }}
-                  onClick={() => handleButtonClick("statistik")}
-                >
-                  {getIconComponentStatistik()} Statistik
-                </p>
+              <button className="btn-primary2">
+                <StatisticIcon /> Statistik
               </button>
             </div>
+
             <div className="mt-2">
-              <button
-                className={`rounded-corner pt-3 ${
-                  activeButton === "pembayaran" ? "bg-primary text-white" : "bg-transparent"
-                }`}
-                style={{ border: "1px solid white", width: "200px" }}
-              >
-                <p
-                  style={{
-                    color: activeButton === "pembayaran" ? "white" : "#979797",
-                    fontWeight: activeButton === "pembayaran" ? "bold" : "normal",
-                    textAlign: "left",
-                    paddingLeft: "25px",
-                  }}
-                  onClick={() => handleButtonClick("pembayaran")}
-                >
-                  {getIconComponentPembayaran()} Pembayaran
-                </p>
+              <button className="btn-primary2onclick">
+                 <PembayaranClickIcon /> <b>Pembayaran</b>
               </button>
             </div>
+
             <div className="mt-2">
-              <button
-                className={`rounded-corner pt-3 ${
-                  activeButton === "psikolog" ? "bg-primary text-white" : "bg-transparent"
-                }`}
-                style={{ border: "1px solid white", width: "200px" }}
-              >
-                <p
-                  style={{
-                    color: activeButton === "psikolog" ? "white" : "#979797",
-                    fontWeight: activeButton === "psikolog" ? "bold" : "normal",
-                    textAlign: "left",
-                    paddingLeft: "25px",
-                  }}
-                  onClick={() => handleButtonClick("psikolog")}
-                >
-                  {getIconComponentPsikolog()} Psikolog
-                </p>
+              <button className="btn-primary2">
+                 <PsikologIcon /> Psikolog
               </button>
             </div>
+
             <div className="mt-2">
-              <button
-                className={`rounded-corner pt-3 ${
-                  activeButton === "customer" ? "bg-primary text-white" : "bg-transparent"
-                }`}
-                style={{ border: "1px solid white", width: "200px" }}
-              >
-                <p
-                  style={{
-                    color: activeButton === "customer" ? "white" : "#979797",
-                    fontWeight: activeButton === "customer" ? "bold" : "normal",
-                    textAlign: "left",
-                    paddingLeft: "25px",
-                  }}
-                  onClick={() => handleButtonClick("customer")}
-                >
-                  {getIconComponentCostumer()} Customer
-                </p>
-              </button>
-              <button
-                className={`rounded-corner pt-3`}
-                style={{
-                  marginTop: "350px",
-                  border: "1px solid white",
-                  width: "200px",
-                  backgroundColor: "white",
-                }}
-              >
-                <p
-                  className="text-danger fw-bold"
-                  style={{ textAlign: "left", paddingLeft: "25px" }}
-                >
-                  <LogOutIcon className="me-2"></LogOutIcon> LogOut
-                </p>
+              <button className="btn-primary2">
+                 <CustomerIcon/> Customer
               </button>
             </div>
+
+            <div className="mt-5">
+              <button className="btn-primary2-danger" >
+                <LogOutIcon /> Logout
+              </button>
+            </div>
+            
           </Col>
           <Col md={7}>
             <div className="mt-2 ms-5">
@@ -273,25 +129,22 @@ const Pembayaran = () => {
             <Container>
               <Row>
                 <Col>
-                  <table
-                    class="mt-5 table table-bordered text-center"
-                    style={{ backgroundColor: "transparent" }}
-                  >
+                  <table class="mt-5 table table-bordered text-center">
                     <thead>
                       <tr>
-                        <th scope="col" style={{ width: "50px" }}>
-                          Kode Pesanan <ArrowIcon></ArrowIcon>{" "}
+                        <th scope="col w-50">
+                          Kode Pesanan <ArrowIcon></ArrowIcon>
                         </th>
-                        <th scope="col" style={{ width: "100px" }}>
+                        <th scope="col w-50">
                           Nama Pemesanan <ArrowIcon></ArrowIcon>
                         </th>
-                        <th scope="col" style={{ width: "100px" }}>
+                        <th scope="col w-50">
                           Tanggal <ArrowIcon></ArrowIcon>
                         </th>
-                        <th scope="col" style={{ width: "100px" }}>
+                        <th scope="col w-50">
                           Harga <ArrowIcon></ArrowIcon>
                         </th>
-                        <th scope="col" style={{ width: "100px" }}>
+                        <th scope="col w-50">
                           Status <ArrowIcon></ArrowIcon>
                         </th>
                       </tr>
@@ -312,15 +165,9 @@ const Pembayaran = () => {
                             <div className="mt-2">{item.price}</div>
                           </td>
                           <td>
-                            <div
-                              style={
-                                item.status === "Berhasil"
-                                  ? roundBackgroundStyleBerhasil
-                                  : roundBackgroundStylePending
-                              }
-                            >
-                              <b> {item.status} </b>
-                            </div>
+                          <div className={item.status === "Berhasil" ? "rounded-pill bg-berhasil text-berhasil p-2" : "rounded-pill bg-pending text-pending p-2"}>
+                            <b>{item.status}</b>
+                          </div>
                           </td>
                         </tr>
                       ))}
@@ -376,7 +223,7 @@ const Pembayaran = () => {
                       <QRIcon></QRIcon>
                     </p>
                     <div className="mt-4">
-                      <button className="btn btn-primary" onClick={handleVerifikasiClick}>
+                      <button className="btn-primary2onclick" onClick={handleVerifikasiClick}>
                         Verifikasi Pembayaran
                       </button>
                     </div>
@@ -386,7 +233,6 @@ const Pembayaran = () => {
             </div>
           </Col>
         </Row>
-      </Container>
     </div>
   );
 };

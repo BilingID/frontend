@@ -236,3 +236,54 @@ ol li::before {
   margin-right: 10px;
   font-weight: bold;
 }
+
+.btn-primary2{
+  height: 75px;
+  font-size: 18px;
+  border: 1px solid #ffffff;
+  border-radius: 40px;
+  padding: 0 40px;    
+  background-color: #fff;
+  color: #979797;
+}
+
+.btn-primary2onclick{
+  height: 75px;
+  font-size: 18px;
+  border: 1px solid #eee;
+  border-radius: 40px;
+  padding: 0 40px;    
+  background-color: #2E7DF1;
+  color: #fff;
+}
+
+.btn-primary2-danger{
+  height: 75px;
+  font-size: 18px;
+  border: 1px solid #ffffff;
+  border-radius: 40px;
+  padding: 0 40px;    
+  background-color: #fff;
+  color: #FF4444;
+  font-weight: bold;
+}
+
+.mt-10{
+  margin-top: 300px;
+}
+
+.text-berhasil{
+  color: #2E7DF1;
+}
+
+.text-pending{
+  color :#F5C556;
+}
+
+.bg-berhasil{
+  background: #EEF5FF;
+}
+
+.bg-pending{
+  background: #FEF8E8;
+}
