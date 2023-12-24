@@ -1,7 +1,6 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import React, { useState } from "react";
 import { ReactComponent as DashboardIcon } from "assets/icon/svg/DashboardIcon.svg";
-import { ReactComponent as StatisticIcon } from "assets/icon/svg/chart-2.svg";
 import { ReactComponent as PembayaranClickIcon } from "assets/icon/svg/PembayaranOnClickIcon.svg";
 import { ReactComponent as PsikologIcon } from "assets/icon/svg/PsikologIcon.svg";
 import { ReactComponent as CustomerIcon } from "assets/icon/svg/CustomerIcon.svg";
@@ -92,13 +91,6 @@ const Pembayaran = () => {
               </button>
             </div>
 
-            
-            <div className="mt-2">
-              <button className="btn-primary2">
-                <StatisticIcon /> Statistik
-              </button>
-            </div>
-
             <div className="mt-2">
               <button className="btn-primary2onclick">
                  <PembayaranClickIcon /> <b>Pembayaran</b>
@@ -128,7 +120,6 @@ const Pembayaran = () => {
             <div className="mt-3 ms-5">
               <h4>Pembayaran</h4>
             </div>
-            <Container>
               <Row>
                 <Col>
                   <table class="mt-5 table table-bordered text-center">
@@ -177,7 +168,6 @@ const Pembayaran = () => {
                   </table>
                 </Col>
               </Row>
-            </Container>
           </Col>
           <Col md={3}>
             <div>
@@ -225,7 +215,7 @@ const Pembayaran = () => {
                       <QRIcon></QRIcon>
                     </p>
                     <div className="mt-4">
-                      <button className="btn-primary2onclick" onClick={handleVerifikasiClick}>
+                      <button className="btn-verif" onClick={handleVerifikasiClick}>
                         Verifikasi Pembayaran
                       </button>
                     </div>

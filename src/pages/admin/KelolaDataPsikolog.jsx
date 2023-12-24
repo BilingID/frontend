@@ -1,7 +1,6 @@
-import { Row, Col} from 'react-bootstrap';
+import { Button, Form, Modal, Row, Col} from 'react-bootstrap';
 import React, { useState } from 'react';
 import { ReactComponent as DashboardIcon } from "assets/icon/svg/DashboardIcon.svg";
-import { ReactComponent as StatisticIcon } from "assets/icon/svg/StatistikIcon.svg";
 import { ReactComponent as PembayaranIcon } from "assets/icon/svg/PembayaranIcon.svg";
 import { ReactComponent as PsikologClickIcon } from "assets/icon/svg/PsikologOnClickIcon.svg";
 import { ReactComponent as CustomerIcon } from "assets/icon/svg/CustomerIcon.svg";
@@ -19,7 +18,32 @@ import { useNavigate } from "react-router-dom";
 
 
 const Pembayaran = () => {
+
+  const [ubahShow, setUbahShow] = useState(false);
+  const [tambahShow, setTambahShow] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+
+  const handleUbahShow = (item) => {
+    setSelectedItem(item);
+    setUbahShow(true);
+  };
+
+  const handleUbahClose = () => setUbahShow(false);
+  const handleTambahShow = () => setTambahShow(true);
+  const handleTambahClose = () => setTambahShow(false);
+
+
   const navigate = useNavigate();
+
+
+
+const handleSend = () => {
+  console.log('Updated Data:', selectedItem);
+  handleUbahClose();
+};
+
+
+
   const initialData = [
     { id: '#111111111', email: 'AAAAAAA@gmail.com', name: 'AAAAAAA', },
     { id: '#222222222', email: 'BBBBBBB@gmail.com', name: 'BBBBBBB', },
@@ -45,12 +69,6 @@ const Pembayaran = () => {
             <div className='mt-5'>
               <button className="btn-primary2" onClick={() => navigate("/admin/dashboard")}>
                 <DashboardIcon /> Dashboard
-              </button>
-            </div>
-
-            <div className='mt-2'> 
-            <button className="btn-primary2">
-                <StatisticIcon /> Statistik
               </button>
             </div>
 
@@ -80,16 +98,51 @@ const Pembayaran = () => {
             </div>
 
             </Col>
-            <Col md={7}>
+            <Col md={8}>
               <div className='mt-3 ms-5'>
                 <h4>
                   Data Psikolog
                 </h4>
               </div>  
               <div className='mt-5 ms-5'>
-                <button className='btn btn-primary'>
+                <button className='btn btn-primary' onClick={handleTambahShow}>
                   <TambahPsikologIcon className='me-2'></TambahPsikologIcon>Tambahkan Psikolog
                 </button>
+                <Modal show={tambahShow} onHide={handleTambahClose} size="lg">
+                            <Modal.Header closeButton>
+                              <Modal.Title>Tambah Psikolog</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <Form>
+                                <Form.Group className='mt-5'>
+                                  <Form.Label><b> Alamat Email </b></Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Masukan Alamat Email"
+                                  />
+                                </Form.Group>
+                                <Form.Group className='mt-4'>
+                                  <Form.Label><b> Nama Lengkap </b></Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    placeholder="Masukkan Nama Lengkap"
+                                  />
+                                </Form.Group>
+                                <Form.Group className='mt-4 mb-5'>
+                                  <Form.Label><b> Sertifikat </b></Form.Label>
+                                  <Form.Control
+                                    type="file"
+                                    label="Upload Sertifikat"
+                                  />
+                                </Form.Group>
+                              </Form>
+                            </Modal.Body>
+                            <Modal.Footer className="d-flex justify-content-center">
+                              <Button className='btn-verif'>
+                                Tambahkan Psikolog
+                              </Button>
+                            </Modal.Footer>
+                          </Modal>
               </div>            
 
               <Row>
@@ -125,9 +178,50 @@ const Pembayaran = () => {
                       </td>
                       <td>
                         <div>
-                          <button className="rounded-pill bg-ubah text-white p-2 "> 
+                          
+                          <button type="button" className="rounded-pill bg-ubah text-white p-2 " onClick={() => handleUbahShow(item)}> 
                             <b> Ubah </b>
                           </button>
+
+                          <Modal show={ubahShow} onHide={handleUbahClose}size="lg">
+                            <Modal.Header closeButton>
+                              <Modal.Title>Ubah Data Psikolog</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <Form>
+                                <Form.Group className='mt-5'>
+                                  <Form.Label><b> Alamat Email </b></Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    value={selectedItem ? selectedItem.email : ''}
+                                    placeholder="Enter recipient"
+
+                                  />
+                                </Form.Group>
+                                <Form.Group className='mt-4'>
+                                  <Form.Label><b> Nama Lengkap </b></Form.Label>
+                                  <Form.Control
+                                    type="text"
+                                    value={selectedItem ? selectedItem.name : ''}
+                                    placeholder="Enter your message"
+                                  />
+                                </Form.Group>
+                                <Form.Group className='mt-4 mb-5'>
+                                  <Form.Label><b> Sertifikat </b></Form.Label>
+                                  <Form.Control
+                                    type="file"
+                                    label="Choose file"
+                                  />
+                                </Form.Group>
+                              </Form>
+                            </Modal.Body>
+                            <Modal.Footer className="d-flex justify-content-center">
+                              <Button className='btn-verif' onClick={handleSend}>
+                                Ubah Data
+                              </Button>
+                            </Modal.Footer>
+                          </Modal>
+
                           <button className="rounded-pill bg-hapus text-white p-2"> 
                             <b> Hapus </b>
                           </button>
@@ -141,20 +235,16 @@ const Pembayaran = () => {
               </Row>
             </Col>
 
-            <Col md={3}>
+            <Col md={2}>
             <div>
-              <div className="d-flex align-items-center">
+              <div className="d-flex align-items-center mt-2">
                 <p className="mb-0">
-                  <CalendarIcon className="me-2"></CalendarIcon> 10/06/23
+                  <CalendarIcon className='me-2'></CalendarIcon> 10/06/23
                 </p>
-                <button className="btn ms-5">
-                  <SearchIcon></SearchIcon>
-                </button>
-                <button className="btn ms-5">
-                  <RingIcon></RingIcon>
-                </button>
+                <button className="btn ms-1"><SearchIcon></SearchIcon></button>
+                <button className="btn ms-1"><RingIcon></RingIcon></button>
               </div>
-            </div>
+              </div>
             </Col>
 
         </Row>
