@@ -91,7 +91,7 @@ const JadwalItem = () => {
           <ListKonseling
             key={index}
             id={item.id}
-            date={moment(item.created_at).format("DD/MM/YYYY HH:mm")}
+            date={`${moment(item.meet_date).format("DD/MM/YYYY")} - ${item.meet_time}`}
             pairName={
               user.role === "psychologist" ? item.user.fullname : item.psychologist.fullname
             }

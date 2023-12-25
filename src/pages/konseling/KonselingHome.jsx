@@ -35,7 +35,7 @@ const KonselingHome = () => {
   return (
     <MainLayout shadow>
       <div className="container container-fluid text-center py-5">
-        <h1 className="text-center mt-3 lh-base">
+        <h1 className="text-center mt-5 lh-base">
           Konseling dengan <br /> Psikolog BiLing.ID
         </h1>
         <p className="my-5 lh-lg mx-auto" style={{ maxWidth: 750 }}>

@@ -52,14 +52,14 @@ const PaymentStart = ({ payment, isCounseling }) => {
           <div className="rounded-corner border bg-body-tertiary " style={{ padding: 30 }}>
             <h4 className="mb-5">Detail pembayaran</h4>
 
-            <h5>Kode pesanan</h5>
-            <p>#123456789 a/n Arla Sifhana Putri</p>
+            <h5>Cara Bayar</h5>
+            <p>Silahkan scan kode QR yang tertera</p>
 
             <h5>Harga</h5>
             <p>Rp. {payment?.amount}</p>
 
             <h5>Metode pembayaran</h5>
-            <p>Rp. {payment?.amount}</p>
+            <p>Transfer Bank BCA</p>
           </div>
         </div>
         <div className="col d-flex flex-column gap-4">

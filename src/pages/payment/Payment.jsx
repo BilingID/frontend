@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Psychotest from "services/api/psikotes";
 import Counseling from "services/api/konseling";
 import { toast } from "react-toastify";
+import konseling from "services/api/konseling";
 
 export const StepProgressBar = ({ steps, start = 0, className = "" }) => {
   return (
@@ -58,10 +59,21 @@ const Payment = ({ step, type }) => {
     }
   };
 
+  const [form, setForm] = useState({
+    meet_date: "",
+    meet_time: "",
+  });
+
+  const konselingHandler = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
   const createPayment = async () => {
     if (type !== "Psikotes") {
       const { data, message, status } = await Counseling.create(token, {
         psychologist_id: psikologId,
+        meet_date: form.meet_date,
+        meet_time: form.meet_time,
       });
 
       if (status === "error") {
@@ -100,7 +112,11 @@ const Payment = ({ step, type }) => {
           </div>
         </div>
         {progress === 0 && (
-          <PaymentMethod createPayment={createPayment} isCounseling={type === "Konseling"} />
+          <PaymentMethod
+            createPayment={createPayment}
+            isCounseling={type === "Konseling"}
+            onChange={konselingHandler}
+          />
         )}
         {progress === 1 && <PaymentStart payment={payment} isCounseling={type === "Konseling"} />}
         {progress === 2 && <PaymentSuccess type={type} />}

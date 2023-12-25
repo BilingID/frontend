@@ -120,7 +120,7 @@ const Landing = () => {
     <MainLayout>
       <section
         id="landing"
-        className="container container-fluid py-5"
+        className="container container-fluid py-4"
         style={{ minHeight: "75vh" }}
       >
         <div className="row">

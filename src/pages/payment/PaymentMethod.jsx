@@ -30,7 +30,7 @@ export const PaymentItem = ({ title, price, last = false, payed = false }) => {
   );
 };
 
-const PaymentMethod = ({ createPayment, isCounseling }) => {
+const PaymentMethod = ({ createPayment, isCounseling, onChange }) => {
   const [toggleTransferBank, setToogleTransferBank] = useState(false);
 
   return (
@@ -69,13 +69,23 @@ const PaymentMethod = ({ createPayment, isCounseling }) => {
               <div className="col">
                 <div className="form-group">
                   <label className="mb-3">Tanggal Konseling</label>
-                  <input type="date" className="form-control" name="date" />
+                  <input
+                    type="date"
+                    className="form-control"
+                    name="meet_date"
+                    onChange={onChange}
+                  />
                 </div>
               </div>
               <div className="col">
                 <div className="form-group">
                   <label className="mb-3">Waktu Konseling</label>
-                  <input type="time" className="form-control" name="time" />
+                  <input
+                    type="time"
+                    className="form-control"
+                    name="meet_time"
+                    onChange={onChange}
+                  />
                 </div>
               </div>
             </div>
@@ -92,12 +102,19 @@ const PaymentMethod = ({ createPayment, isCounseling }) => {
       </div>
 
       <div className="col-4">
-        <div className="rounded-corner border bg-body-tertiary pe-auto" style={{ padding: 30 }}>
-          <h4 className="mb-3">Psikotes</h4>
-          <PaymentItem title="Psikotes" price="50.000" />
-          <PaymentItem title="Psikotes" price="50.000" last />
-          <PaymentItem title="Total pembayaran" price="50.000" payed />
-        </div>
+        {isCounseling ? (
+          <div className="rounded-corner border bg-body-tertiary pe-auto" style={{ padding: 30 }}>
+            <h4 className="mb-3">Konseling</h4>
+            <PaymentItem title="Konseling" price="300.000" />
+            <PaymentItem title="Total pembayaran" price="300.000" payed />
+          </div>
+        ) : (
+          <div className="rounded-corner border bg-body-tertiary pe-auto" style={{ padding: 30 }}>
+            <h4 className="mb-3">Psikotes</h4>
+            <PaymentItem title="Psikotes" price="50.000" />
+            <PaymentItem title="Total pembayaran" price="50.000" payed />
+          </div>
+        )}
       </div>
     </div>
   );
