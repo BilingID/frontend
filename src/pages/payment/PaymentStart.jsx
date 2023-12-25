@@ -26,7 +26,7 @@ const PaymentCountdown = ({ hours, minutes, seconds, completed }) => {
   );
 };
 
-const PaymentStart = ({ payment }) => {
+const PaymentStart = ({ payment, isCounseling }) => {
   const { code } = useParams();
   const navigate = useNavigate();
   const [expiredAt, setExpiredAt] = useState(null);
@@ -34,10 +34,10 @@ const PaymentStart = ({ payment }) => {
   useEffect(() => {
     if (payment?.status === "paid") {
       toast.warn("Pembayaran sudah dilakukan");
-      navigate("/users/psikotes");
+      navigate("/users");
     } else if (payment?.status === "expired") {
       toast.warn("Pembayaran sudah kadaluarsa, silahkan lakukan pembayaran ulang");
-      navigate("/psikotes");
+      navigate("/");
     }
   }, []);
 
@@ -75,7 +75,11 @@ const PaymentStart = ({ payment }) => {
             <h4>Kode pembayaran</h4>
             {payment?.payment_code ? (
               <QRCode
-                value={`http://localhost:8000/api/v1/psikotes/${code}/process`}
+                value={
+                  isCounseling
+                    ? `http://localhost:8000/api/v1/konseling/${code}/process`
+                    : `http://localhost:8000/api/v1/psikotes/${code}/process`
+                }
                 level="M"
                 className="my-4"
               />
@@ -84,7 +88,15 @@ const PaymentStart = ({ payment }) => {
             )}
 
             <p>Scan kode QR</p>
-            <a href={`http://localhost:8000/api/v1/psikotes/${code}/process`}>DEBUG PAY</a>
+            <a
+              href={
+                isCounseling
+                  ? `http://localhost:8000/api/v1/konseling/${code}/process`
+                  : `http://localhost:8000/api/v1/psikotes/${code}/process`
+              }
+            >
+              DEBUG PAY
+            </a>
           </div>
         </div>
       </div>

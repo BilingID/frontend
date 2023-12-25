@@ -9,7 +9,7 @@ import PaymentSuccess from "./PaymentSuccess";
 import { useUserContext } from "context/UserContext";
 import { useNavigate, useParams } from "react-router-dom";
 import Psychotest from "services/api/psikotes";
-import moment from "moment";
+import Counseling from "services/api/konseling";
 import { toast } from "react-toastify";
 
 export const StepProgressBar = ({ steps, start = 0, className = "" }) => {
@@ -30,41 +30,56 @@ const Payment = ({ step, type }) => {
   const [progress, setProgress] = useState(step || 0);
   const navigate = useNavigate();
   const { token } = useUserContext();
-  const { code } = useParams();
+  const { code, psikologId, id } = useParams();
 
   const [payment, setPayment] = useState({});
 
   const getPayment = async () => {
     if (type !== "Psikotes") {
-      // todo: get payment for other type
-      return;
-    }
+      const { data } = await Counseling.getPayment(token, code);
 
-    const { data } = await Psychotest.getPayment(token, code);
+      if (data.status === "paid") {
+        setProgress(2);
+      } else {
+        setProgress(1);
+      }
 
-    if (data.status === "paid") {
-      setProgress(2);
+      setPayment(data);
     } else {
-      setProgress(1);
-    }
+      const { data } = await Psychotest.getPayment(token, code);
 
-    setPayment(data);
+      if (data.status === "paid") {
+        setProgress(2);
+      } else {
+        setProgress(1);
+      }
+
+      setPayment(data);
+    }
   };
 
   const createPayment = async () => {
     if (type !== "Psikotes") {
-      // todo: get payment for other type
-      setProgress(2);
-      return;
-    }
-    const { data, message, status } = await Psychotest.create(token);
+      const { data, message, status } = await Counseling.create(token, {
+        psychologist_id: psikologId,
+      });
 
-    if (status === "error") {
-      toast.warn("Gagal membuat transaksi pembayaran");
-      return;
-    }
+      if (status === "error") {
+        toast.warn("Gagal membuat transaksi pembayaran");
+        return;
+      }
 
-    navigate(`/psikotes/${data.code}/payment`);
+      navigate(`/konseling/${data.id}/payment`);
+    } else {
+      const { data, message, status } = await Psychotest.create(token);
+
+      if (status === "error") {
+        toast.warn("Gagal membuat transaksi pembayaran");
+        return;
+      }
+
+      navigate(`/psikotes/${data.code}/payment`);
+    }
   };
 
   useEffect(() => {
@@ -84,8 +99,10 @@ const Payment = ({ step, type }) => {
             />
           </div>
         </div>
-        {progress === 0 && <PaymentMethod createPayment={createPayment} />}
-        {progress === 1 && <PaymentStart payment={payment} />}
+        {progress === 0 && (
+          <PaymentMethod createPayment={createPayment} isCounseling={type === "Konseling"} />
+        )}
+        {progress === 1 && <PaymentStart payment={payment} isCounseling={type === "Konseling"} />}
         {progress === 2 && <PaymentSuccess type={type} />}
       </div>
     </MainLayout>

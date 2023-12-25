@@ -2,7 +2,9 @@ import MainLayout from "components/layout/MainLayout";
 import React, { useRef, useState } from "react";
 import { ReactComponent as DocumentIcon } from "assets/icon/svg/document.svg";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useUserContext } from "context/UserContext";
+import Counseling from "services/api/konseling";
 
 const FormUpload = ({ onChange, form, handleUpload }) => {
   const fileRef = useRef(null);
@@ -36,6 +38,9 @@ const FormUpload = ({ onChange, form, handleUpload }) => {
 
 const Diagnosa = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { token } = useUserContext();
+
   const [form, setForm] = useState({
     file: null,
   });
@@ -59,8 +64,21 @@ const Diagnosa = () => {
     });
   };
 
-  const handleUpload = (event) => {
-    console.log(form);
+  const handleUpload = async (event) => {
+    event.preventDefault();
+
+    if (!form.file) return toast.warn("File harus diisi");
+
+    const { data, status } = await Counseling.update(token, id, form);
+    console.log(data);
+
+    if (status !== "success") {
+      toast.warn("Gagal mengupload hasil konseling");
+      return;
+    }
+
+    toast.success("Berhasil mengupload hasil konseling");
+    navigate(-1);
   };
 
   return (

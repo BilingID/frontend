@@ -30,16 +30,19 @@ export const PaymentItem = ({ title, price, last = false, payed = false }) => {
   );
 };
 
-const PaymentMethod = ({ createPayment }) => {
+const PaymentMethod = ({ createPayment, isCounseling }) => {
   const [toggleTransferBank, setToogleTransferBank] = useState(false);
 
   return (
     <div className="row">
       <h4>Pilih metode pembayaran</h4>
       <div className="col-8">
-        <div className="rounded-corner border bg-body-tertiary pe-auto" style={{ padding: 30 }}>
+        <div
+          className="rounded-corner border bg-body-tertiary pe-auto mb-3"
+          style={{ padding: 30 }}
+        >
           <div
-            className="d-flex justify-content-between align-items-center "
+            className="d-flex justify-content-between align-items-center"
             onClick={() => setToogleTransferBank(!toggleTransferBank)}
           >
             <div>
@@ -58,6 +61,29 @@ const PaymentMethod = ({ createPayment }) => {
             </div>
           )}
         </div>
+
+        {/* jadwal konseling */}
+        {isCounseling && (
+          <div className="rounded-corner border bg-body-tertiary pe-auto" style={{ padding: 30 }}>
+            <div className="row">
+              <div className="col">
+                <div className="form-group">
+                  <label className="mb-3">Tanggal Konseling</label>
+                  <input type="date" className="form-control" name="date" />
+                </div>
+              </div>
+              <div className="col">
+                <div className="form-group">
+                  <label className="mb-3">Waktu Konseling</label>
+                  <input type="time" className="form-control" name="time" />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* end jadwal konseling */}
+
         <div className="d-flex justify-content-end">
           <button className="btn btn-primary my-4" onClick={createPayment}>
             Bayar Sekarang

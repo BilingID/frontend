@@ -86,19 +86,19 @@ const Routes = () => {
       element: <Navigate to="/" replace />, // debug
     },
     {
-      path: "/konseling/start",
+      path: "/konseling/:id/start",
       element: <MulaiKonseling />,
     },
+    // {
+    //   path: "/konseling/:id/result",
+    //   element: <HasilPsikotes />,
+    // },
     {
-      path: "/konseling/result",
-      element: <HasilPsikotes />,
-    },
-    {
-      path: "/konseling/diagnosa",
+      path: "/konseling/:id/result/edit",
       element: <DiagnosaPage />,
     },
     {
-      path: "/konseling/result/diagnosa",
+      path: "/konseling/:id/result",
       element: <HasilDiagnosa />,
     },
     {
@@ -106,8 +106,12 @@ const Routes = () => {
       element: <KonselingHome />,
     },
     {
-      path: "/konseling/payment",
+      path: "/konseling/profile/:psikologId/payment",
       element: <PrivateRoute element={<PaymentPage type={"Konseling"} />} />,
+    },
+    {
+      path: "/konseling/:code/payment",
+      element: <PrivateRoute element={<PaymentPage step={1} type={"Konseling"} />} />,
     },
     {
       path: "/konseling/profile/:id",
@@ -133,9 +137,6 @@ const Routes = () => {
       path: "/admin/statistik",
       element: <StatistikAdmin />,
     },
-
-
-
   ]);
 
   return routes;

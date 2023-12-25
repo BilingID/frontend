@@ -57,7 +57,7 @@ const ShowProfile = () => {
         <div className="text-center">
           <button
             className="btn btn-primary mt-5 mb-5"
-            onClick={() => navigate("/konseling/payment")}
+            onClick={() => navigate(`/konseling/profile/${id}/payment`)}
           >
             Daftar Konseling
           </button>
