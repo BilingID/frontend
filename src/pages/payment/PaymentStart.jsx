@@ -45,6 +45,11 @@ const PaymentStart = ({ payment, isCounseling }) => {
     setExpiredAt(new Date().getTime() + 1000 * 60 * 15 - payment?.countdown * 1000);
   }, [payment]);
 
+  const openInNewTab = (url) => {
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+  };
+
   return (
     <div>
       <div className="row">
@@ -81,14 +86,21 @@ const PaymentStart = ({ payment, isCounseling }) => {
                     : `http://localhost:8000/api/v1/psikotes/${code}/process`
                 }
                 level="M"
-                className="my-4"
+                className="my-4 pe-auto"
+                onClick={() => {
+                  openInNewTab(
+                    isCounseling
+                      ? `http://localhost:8000/api/v1/konseling/${code}/process`
+                      : `http://localhost:8000/api/v1/psikotes/${code}/process`
+                  );
+                }}
               />
             ) : (
               <p>Belum ada kode pembayaran</p>
             )}
 
             <p>Scan kode QR</p>
-            <a
+            {/* <a
               href={
                 isCounseling
                   ? `http://localhost:8000/api/v1/konseling/${code}/process`
@@ -96,7 +108,7 @@ const PaymentStart = ({ payment, isCounseling }) => {
               }
             >
               DEBUG PAY
-            </a>
+            </a> */}
           </div>
         </div>
       </div>
