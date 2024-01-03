@@ -69,7 +69,12 @@ const LoginPage = () => {
     if (status === "success") {
       toast.success("Login Berhasil");
     } else {
-      toast.warn("Login Gagal");
+      // TODO: add translation
+      if (message === "Your email is not registered") {
+        toast.warn("Email yang anda masukkan tidak terdaftar");
+      } else if (message === "Your password is incorrect") {
+        toast.warn("Password yang anda masukkan salah");
+      }
     }
 
     setToken(data?.token);

@@ -367,35 +367,40 @@ const ProfilItem = () => {
         ) : (
           <ProfilView user={user} handleClick={() => setEditable(true)} />
         )}
-        <div className="fs-2 border-bottom pb-3 mt-5">Profil Lanjutan</div>
-        <div>
-          <div
-            className="d-flex justify-content-between align-items-center btn-default bg-transparent pe-auto"
-            onClick={handleToggleAdditional}
-          >
-            <h5 className="m-0">Data diri</h5>
-            <div className="d-flex align-items-center gap-4">
-              {user?.bio_desc && user?.skill_desc ? (
-                <div className="badge text-success bg-success-transparent btn-default-2 bg-">
-                  Sudah terisi
-                </div>
-              ) : (
-                <div className="badge text-danger bg-danger-transparent btn-default-2 bg-">
-                  Belum terisi
-                </div>
-              )}
 
-              <ArrowDown
-                width={24}
-                height={24}
-                style={{
-                  transform: toggleAdditional ? "rotate(180deg)" : "rotate(0deg)",
-                }}
-              />
+        {user?.role === "psikolog" && (
+          <>
+            <div className="fs-2 border-bottom pb-3 mt-5">Profil Lanjutan</div>
+            <div>
+              <div
+                className="d-flex justify-content-between align-items-center btn-default bg-transparent pe-auto"
+                onClick={handleToggleAdditional}
+              >
+                <h5 className="m-0">Data diri</h5>
+                <div className="d-flex align-items-center gap-4">
+                  {user?.bio_desc && user?.skill_desc ? (
+                    <div className="badge text-success bg-success-transparent btn-default-2 bg-">
+                      Sudah terisi
+                    </div>
+                  ) : (
+                    <div className="badge text-danger bg-danger-transparent btn-default-2 bg-">
+                      Belum terisi
+                    </div>
+                  )}
+
+                  <ArrowDown
+                    width={24}
+                    height={24}
+                    style={{
+                      transform: toggleAdditional ? "rotate(180deg)" : "rotate(0deg)",
+                    }}
+                  />
+                </div>
+              </div>
+              {toggleAdditional && <AdditionalProfil />}
             </div>
-          </div>
-          {toggleAdditional && <AdditionalProfil />}
-        </div>
+          </>
+        )}
       </div>
     </Fragment>
   );
